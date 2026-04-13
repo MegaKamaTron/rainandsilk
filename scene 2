@@ -1,0 +1,431 @@
+image cloud_drifts:
+    Tile("gui/cloud_shadows.png")
+    xpos 0
+    # This must be a 'block' to loop correctly
+    block:
+        linear 80.0 xpos -1920 
+        xpos 0
+        repeat
+label start:
+  jump s1_chamber
+
+label s1_chamber:
+    scene bg bedroom
+    with dissolve
+    play ambience lightrain fadein 2.5 volume 0.8
+    play music temple_theme fadein 2.0 volume 0.3
+
+    e "Early morning had arrived quietly over the temple grounds, leaving the outer courtyards hushed beneath a growing light...."
+
+    n "A light rain pattered against the windowsill, wayward drops pooling and sliding down the wood in haphhazard patterns."
+
+    n "Inside Aya's private chambers, the air was warm and still, scented with steamed cedar and the faint floral trace of her bath."
+    
+    show aya bored at stage_right with dissolve
+    n "Aya stood before the low mirror, smoothing the final folds of her silk under-robe and tying the wide obi with a crisp, practiced knot."
+
+    show emiko patient at stage_left with dissolve
+
+    n "Just behind her right shoulder, her guard stood watch in perfect stillness, one hand resting lightly near the hilt of her hidden blade."
+
+    n "Her fingers were callused from years of sword practice, steady and capable even at rest."
+
+    n "Her poise was impeccable, her posture straight and balanced, her gaze calm and alert."
+
+    n "Aya noticed them anyway."
+
+    e "Priestess..."
+
+    a "No. I don't need assistance."
+    a "Despite it all, I can dress myself."
+
+    n "She forced her gaze from Emiko's reflection and fixed it instead on the open lattice beyond the room, where early morning light silvered the garden stones."
+
+########################################
+# MENU 1 #
+########################################
+    $ menu_owner == "aya"
+    menu:
+        "Charge. Will you follow me to the courtyard?":
+            $ aya_soft_points += 1
+            e "It is my duty and honor."
+            n "Despite the role, Aya still posed the request as a question. {w=0.35}As if her charge had any authority to refuse."
+
+        "Guard. Follow me to the courtyard.":
+            e "As you wish, Priestess."
+            n "The request was direct and simple. No room for refusal, yet said with a tone that still suggested there wasn't any sharpness to it."
+    $ menu_owner == None
+########################################
+# END MENU 1 #
+########################################
+
+    n "The Guard's voice remained calm and even, but Aya still felt the familiar weight beneath it."
+
+    n "Duty gave them proximity. It also kept everything between them carefully named, carefully limited."
+
+    n "Always at arm's length. Always watchful. Always ready to serve."
+
+    n "There was never supposed to be room for anything more."
+
+    n "The guard stood rigidly, then flexed her hands once before stilling them again."
+
+    n "The motion was small, almost invisible. Aya noticed that too."
+  
+    show emiko neutral
+    e "Shall we go, Priestess?"
+    a "..."
+    hide aya bored with dissolve
+    n "Aya only turned toward the door, gathering herself like a priestess slipping back over the woman beneath."
+    pause 1.0
+    hide emiko with dissolve
+    n "As eternally the ever commited guard, she followed without hesitation."
+    window hide 
+    with dissolve
+    pause 1.5
+    show bg black with dissolve
+    stop music fadeout 1.5
+    stop ambience fadeout 2.0
+
+    jump s2_quiet_complaints
+
+
+label s2_quiet_complaints:
+    pause 1.0
+    scene bg black 
+    with dissolve
+    play ambience forestamb fadein 2.0 volume 1.0
+    pause 2.0
+    play music bgm_pilgrimage_soft fadein 1.5
+    pause 1.5
+    scene bg temple_path with slow_dissolve
+    show screen bokeh onlayer overlay_bg
+    pause 2.0
+
+    n "The sacred road to the high moon shrine wound along the hillside in a slow, unending ribbon of stone, each step marked by weathered prayer-steles and wind-worn flags."
+    n "Once each full moon, Aya made this pilgrimage as the Moon's Mouthpiece, and every time she told herself the climb would feel lighter beneath her feet."
+    n "It never did."
+    show trees_left with slow_dissolve
+    show cloud_drifts onlayer master:
+        alpha 0.6  # Adjust this to make the shadows more or less subtle
+        additive 0.0 # Keep it as a darkening shadow
+    show trees_right onlayer foreground with slow_dissolve
+    show aya vulnerable at stage_right with dissolve
+    # show character_shadow as aya_shadow at stage_right:
+    #     alpha 0.5
+    n "Priestess Aya walked at an unhurried pace near the center of the procession, white-and-soft blue robes catching stray sunbeams."
+    show emiko neutral at stage_left with dissolve
+    # show character_shadow as emiko_shadow at stage_left:
+    #     alpha 0.5
+    n "Three precise steps behind her, as always, Emiko followed in quiet shadow—armor dark, expression unreadable, hand resting lightly on the hilt of her sword."
+    
+    show aya laugh at stage_right
+    a "How terribly poetic."
+    show aya bored at stage_right
+    a "The goddess must adore watching us sweat in perfect formation."
+
+    n "Her tone was airy, but the faint crease at the corner of her eyes betrayed the long hours already behind them."
+
+    a "My blessed feet were meant for marble floors, not endless stones and mountain wind."
+
+    show emiko stoic at stage_left
+
+    e "The shrine is still ahead, Priestess."
+
+    a "Cruelly ahead."
+    show emiko neutral at stage_left
+    n "The stoic guard said nothing to that."
+    n "She kept the distance exactly as she always did: three measured steps, never closer, never farther, as if the space itself were part of the rite."
+
+    $ menu_owner = "aya"
+    menu:
+        "How does Aya handle it?"
+
+        "Overly dramatic":
+            $ aya_complaint_style = "dramatic"
+
+        "Lightly dismissive":
+            $ aya_complaint_style = "dismissive"
+
+        "Play it off":
+            $ aya_complaint_style = "play_it_off"
+            $ aya_soft_points += 1
+
+    if aya_complaint_style == "dramatic":
+        a "At this point I may perish beautifully on the road and become a cautionary temple mural."
+        a "Make certain they paint me flatteringly."
+        e "I will prevent the first part."
+        a "Mm. How devoted."
+
+    elif aya_complaint_style == "dismissive":
+        a "It's nothing."
+        a "The stones are only pretending to be sacred so no one can complain about how cruel they are."
+
+        n "Aya adjusted her step with practiced grace, as though the road had not been needling at her for the last hour."
+
+        e "They trouble you."
+
+        a "Everything troubles me on pilgrimage days."
+        a "I simply prefer to remain elegant about it."
+
+        n "The answer came dry and effortless, but Emiko had watched her long enough to hear the truth tucked beneath the polish."
+
+    else:
+        a "I will survive."
+        show aya laugh at stage_right
+        a "And if I do not, you may tell everyone I was defeated by devotional architecture."
+        n "Aya said it lightly, with just enough humor to flatten whatever truth sat underneath."
+    show emiko shy
+    e "...."
+    e "You are in pain."
+    show aya bored
+    a "Only a little."
+    show aya smile
+    a "The stones bite after a while, that's all."
+    show emiko neutral
+    n "She smiled as if she had not admitted anything at all."
+    show aya laugh
+    a "You say that as though you've been taking inventory."
+    show emiko blush
+    e "...."
+    show emiko neutral
+    e "I have."
+    show aya soft at stage_right
+    a "Of my complaints?"
+
+    e "Of the road."
+    e "And of where it troubles you."
+    show aya smile at stage_right
+    n "Aya smiled before she could stop herself."
+
+    a "How reassuring."
+    a "My stoic guard studies the terrain with my suffering in mind."
+    pause 1.0
+    hide emiko 
+    with dissolve
+    hide aya 
+    with dissolve
+    hide trees_left
+    hide trees_right
+    hide cloud_drifts
+    n "A few attendants ahead of them hid polite smiles and kept their eyes forward."
+    n "Aya's complaints had long since become part of such journeys—small bright threads drawn through the solemnity."
+
+    n "Yet today, as the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of Emiko's steps behind her."
+
+    a "Three paces, even here."
+
+    show emiko_armor_alert at right
+
+    e "Yes, Priestess."
+
+    a "You never tire of it?"
+
+    e "Of duty?"
+
+    a "Of distance."
+
+    n "The question drifted back lightly, almost idle."
+    n "It still landed between them with more weight than Aya intended."
+
+    e "It is the appointed measure."
+
+    n "Correct. Calm. Impenetrable."
+    n "And still not truly an answer."
+
+    show aya_robes_teasing at left
+
+    a "I suppose I should be grateful."
+    a "If you walked at my side, everyone would stare."
+    a "They might think my guard more interesting than the Moon's own mouthpiece."
+
+    e "No one looks at the guard when the priestess is before them."
+
+    n "Aya almost laughed at the sincerity of it."
+
+    if aya_complaint_style == "dramatic":
+        a "I do."
+        a "Frequently, I fear."
+
+    elif aya_complaint_style == "dismissive":
+        a "Well, someone has to."
+        a "You'd be unbearable if left entirely unobserved."
+
+    else:
+        a "I notice you."
+        a "Even when I pretend not to."
+
+    n "That earned no spoken reply."
+    n "But the air behind her shifted, subtle as a change in wind before rain."
+
+    pause 0.4
+
+    a "Emiko."
+
+    show emiko_armor_startled at right
+
+    n "It was the first time that day she had used the name plainly on the open road."
+
+    e "…Yes."
+
+    n "The answer came a fraction late."
+
+    a "Thank you for walking with me."
+    a "Not only today."
+
+    e "It is my duty."
+
+    a "Of course."
+    a "Still, I am glad it is you."
+
+    n "The procession continued around a bend in the mountain road."
+    n "Only Aya noticed how Emiko's footfalls missed their perfect rhythm for half a heartbeat before settling again."
+
+    n "The path narrowed after that, roots lifting the old stones into uneven ridges."
+    n "Aya's sandal caught—not enough for a fall, only enough for her balance to tilt."
+
+    show emiko_armor_reach at right
+
+    n "Emiko moved instantly, one step closer before thought could restrain her, weight shifting to catch what had not quite happened."
+
+    pause 0.2
+
+    show emiko_armor_neutral at right
+
+    n "Aya recovered on her own, but she still felt the almost of Emiko's hand at her arm."
+
+    if aya_complaint_style == "dramatic":
+        a "There. You see?"
+        a "The mountain itself conspires against me."
+
+    elif aya_complaint_style == "dismissive":
+        a "Charming."
+        a "Even the road has opinions that seem to want to debate me."
+
+    else:
+        a "Almost."
+        a "That would have been an embarrassing death for sacred history to preserve."
+        
+    e "I will not allow that."
+    n "The words were simple."
+    n "The way Emiko said them was not."
+
+    a "You've been saying that for years."
+    a "You would think it would be easier, walking with you at my back."
+
+    n "For a heartbeat, the space between them tightened, full of everything Aya had not meant to admit."
+
+    a "Instead, exhausted as I am, I have half a mind to order you to let me ride on your back the rest of the way like a spoiled child."
+
+    show emiko flustered at stage_right
+
+    n "The moment folded neatly back into familiar banter."
+
+    e "That would not be dignified, Priestess."
+
+    a "No."
+    a "But it would be merciful to my feet."
+
+    n "Aya let the joke stand as a shield, even while something quieter ached beneath it."
+
+    e "The next way-station is close."
+    e "You can rest there before the final ascent."
+
+    a "You checked already, I assume."
+
+    e "Twice."
+
+    n "Aya's smile deepened."
+
+    a "How fortunate for me."
+    a "What would become of the holy order without your relentless suspicion of inadequate shade?"
+
+    e "It would survive."
+
+    a "Mm. Perhaps."
+    a "I might not."
+
+    n "Silence followed, but it was no longer empty."
+    n "It carried the weight of years, of habit worn smooth by repetition, of affection so carefully hidden it had learned to move inside smaller and smaller spaces."
+
+    n "The road climbed on toward the high moon shrine, the procession a narrow line between stone and sky."
+
+    a "{i}Stay with me, Emiko.{/i}"
+
+    n "She did not say it aloud."
+    n "She did not need to."
+
+    if aya_soft_points >= 1:
+        $ hidden_moon_scene_unlocked = True
+        jump s2_hidden_moon_coda
+    else:
+        return
+
+label s2_hidden_moon_coda:
+
+    scene bg_high_moon_shrine_night with fade
+    play music "bgm_moon_rite.ogg" fadein 1.5
+
+    show aya_robes_tired at left
+    show emiko_armor_neutral at right
+
+    n "By the time the final ascent ended, the shrine had gone silver with night."
+    n "The attendants withdrew one by one, leaving only Aya, Emiko, and the cold clear hush of the mountain."
+    n "Beyond the carved gates of the inner sanctum, the moon rite waited."
+
+    a "You may wait outside."
+
+    e "Yes, Priestess."
+
+    n "Emiko bowed once, precise as ever."
+    n "She stepped back into her proper place at the threshold, close enough to guard, far enough not to intrude."
+
+    a "I know."
+    a "You always do."
+
+    n "For the smallest moment, Emiko's gaze lifted."
+    n "Then she lowered it again and turned toward the outer dark."
+
+    hide emiko neutral with dissolve
+
+    n "Alone at last, Aya exhaled in a long, ungraceful stream and set the ritual tray beside the moon basin."
+    n "Her shoulders ached. Her feet ached. Even the silver weight of her hair ornaments had begun to feel ceremonial in the cruelest possible way."
+
+    show aya soft at center
+
+    a "Well."
+    a "If the goddess intends to speak tonight, I would be grateful if she could do it before my legs give out beneath me."
+
+    a "I spend enough time listening."
+    a "She might try listening back once in a while."
+
+    n "The words were meant lightly."
+    n "The shrine gave her only moonlight in return."
+
+    a "For a moment, I think Emiko listens to me better than you do."
+
+    pause 0.5
+
+    n "Aya went still."
+    n "The truth of it landed more softly than shame, and more sharply."
+
+    a "That was unwise."
+
+    n "A tired laugh escaped her, quiet and brief."
+
+    a "Forget I said it."
+    a "You are a goddess. I am trying to be respectful."
+
+    n "She closed her eyes for a moment, gathering herself."
+    n "When she opened them again, the priestess had settled over the woman like a familiar veil."
+
+    show aya soft at center
+
+    n "Aya knelt before the basin, straightened her sleeves, and lifted her hands toward the moon."
+    n "The mountain wind stirred the prayer streamers overhead."
+    n "Then, at last, she began the rite."
+
+    stop music fadeout 1.5
+    scene black with Dissolve(2.0)
+
+    return
+
