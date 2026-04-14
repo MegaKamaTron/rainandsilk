@@ -47,7 +47,7 @@ label s1_chamber:
 ########################################
 # MENU 1 #
 ########################################
-    $ menu_owner == "aya"
+    $ menu_owner = "aya"
     menu:
         "Charge. Will you follow me to the courtyard?":
             $ aya_soft_points += 1
@@ -57,7 +57,7 @@ label s1_chamber:
         "Guard. Follow me to the courtyard.":
             gu "As you wish, Priestess."
             n "The request was direct and simple. No room for refusal, yet said with a tone that still suggested there wasn't any sharpness to it."
-    $ menu_owner == None
+    $ menu_owner = None
 ########################################
 # END MENU 1 #
 ########################################
