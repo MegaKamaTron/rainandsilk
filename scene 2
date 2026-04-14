@@ -406,20 +406,16 @@ label s2_quiet_complaints:
         return
 
 label s2_hidden_moon_coda:
-    scene bg_high_moon_shrine_night with fade
-    play music "bgm_moon_rite.ogg" fadein 1.5
-
-    show aya_robes_tired at left
-    show emiko_armor_neutral at right
-
+    scene bg temple_night with slow_walk_zoom
+    play music hazymoon fadein 1.5
+    pause 1.0
     n "By the time the final ascent ended, the shrine had gone silver with night."
     n "The attendants withdrew one by one, leaving only Aya, Emiko, and the cold clear hush of the mountain."
     n "Beyond the carved gates of the inner sanctum, the moon rite waited."
-
+    show aya bored at stage_right with dissolve
+    show emiko neutral at stage_left with dissolve
     a "You may wait outside."
-
     e "Yes, Priestess."
-
     n "Emiko bowed once, precise as ever."
     n "She stepped back into her proper place at the threshold, close enough to guard, far enough not to intrude."
 
