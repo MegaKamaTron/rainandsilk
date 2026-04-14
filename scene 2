@@ -7,7 +7,10 @@ image cloud_drifts:
         xpos 0
         repeat
 label start:
-  jump s1_chamber
+label test_audio_2:
+    play ambience "audio/footsteps.mp3"
+    "Listen."
+    jump s1_chamber
 
 label s1_chamber:
     scene bg bedroom
@@ -15,7 +18,7 @@ label s1_chamber:
     play ambience lightrain fadein 2.5 volume 0.8
     play music temple_theme fadein 2.0 volume 0.3
 
-    e "Early morning had arrived quietly over the temple grounds, leaving the outer courtyards hushed beneath a growing light...."
+    gu "Early morning had arrived quietly over the temple grounds, leaving the outer courtyards hushed beneath a growing light...."
 
     n "A light rain pattered against the windowsill, wayward drops pooling and sliding down the wood in haphhazard patterns."
 
@@ -34,7 +37,7 @@ label s1_chamber:
 
     n "Aya noticed them anyway."
 
-    e "Priestess..."
+    gu "Priestess..."
 
     a "No. I don't need assistance."
     a "Despite it all, I can dress myself."
@@ -48,11 +51,11 @@ label s1_chamber:
     menu:
         "Charge. Will you follow me to the courtyard?":
             $ aya_soft_points += 1
-            e "It is my duty and honor."
+            gu "It is my duty and honor."
             n "Despite the role, Aya still posed the request as a question. {w=0.35}As if her charge had any authority to refuse."
 
         "Guard. Follow me to the courtyard.":
-            e "As you wish, Priestess."
+            gu "As you wish, Priestess."
             n "The request was direct and simple. No room for refusal, yet said with a tone that still suggested there wasn't any sharpness to it."
     $ menu_owner == None
 ########################################
@@ -72,7 +75,7 @@ label s1_chamber:
     n "The motion was small, almost invisible. Aya noticed that too."
   
     show emiko neutral
-    e "Shall we go, Priestess?"
+    gu "Shall we go, Priestess?"
     a "..."
     hide aya bored with dissolve
     n "Aya only turned toward the door, gathering herself like a priestess slipping back over the woman beneath."
@@ -116,7 +119,7 @@ label s2_quiet_complaints:
     show emiko neutral at stage_left with dissolve
     # show character_shadow as emiko_shadow at stage_left:
     #     alpha 0.5
-    n "Three precise steps behind her, as always, Emiko followed in quiet shadow—armor dark, expression unreadable, hand resting lightly on the hilt of her sword."
+    n "Three precise steps behind her, as always, her guard followed in quiet shadow—armor dark, expression unreadable, hand resting lightly on the hilt of her sword."
     
     show aya laugh at stage_right
     a "How terribly poetic."
@@ -129,7 +132,7 @@ label s2_quiet_complaints:
 
     show emiko stoic at stage_left
 
-    e "The shrine is still ahead, Priestess."
+    gu "The shrine is still ahead, Priestess."
 
     a "Cruelly ahead."
     show emiko neutral at stage_left
@@ -153,7 +156,7 @@ label s2_quiet_complaints:
     if aya_complaint_style == "dramatic":
         a "At this point I may perish beautifully on the road and become a cautionary temple mural."
         a "Make certain they paint me flatteringly."
-        e "I will prevent the first part."
+        gu "I will prevent the first part."
         a "Mm. How devoted."
 
     elif aya_complaint_style == "dismissive":
@@ -162,7 +165,7 @@ label s2_quiet_complaints:
 
         n "Aya adjusted her step with practiced grace, as though the road had not been needling at her for the last hour."
 
-        e "They trouble you."
+        gu "They trouble you."
 
         a "Everything troubles me on pilgrimage days."
         a "I simply prefer to remain elegant about it."
@@ -175,8 +178,8 @@ label s2_quiet_complaints:
         a "And if I do not, you may tell everyone I was defeated by devotional architecture."
         n "Aya said it lightly, with just enough humor to flatten whatever truth sat underneath."
     show emiko shy
-    e "...."
-    e "You are in pain."
+    gu "...."
+    gu "You are in pain."
     show aya bored
     a "Only a little."
     show aya smile
@@ -186,62 +189,70 @@ label s2_quiet_complaints:
     show aya laugh
     a "You say that as though you've been taking inventory."
     show emiko blush
-    e "...."
+    gu "...."
     show emiko neutral
-    e "I have."
+    gu "I have."
     show aya soft at stage_right
     a "Of my complaints?"
-
-    e "Of the road."
-    e "And of where it troubles you."
+    gu "Of the road."
+    show emiko shy
+    gu "And of where it troubles you."
     show aya smile at stage_right
     n "Aya smiled before she could stop herself."
-
     a "How reassuring."
     a "My stoic guard studies the terrain with my suffering in mind."
+    show emiko shy 
     pause 1.0
     hide emiko 
     with dissolve
     hide aya 
     with dissolve
-    hide trees_left
-    hide trees_right
+    hide trees_right onlayer foreground with slow_dissolve 
+    hide trees_left with slow_dissolve
     hide cloud_drifts
     n "A few attendants ahead of them hid polite smiles and kept their eyes forward."
     n "Aya's complaints had long since become part of such journeys—small bright threads drawn through the solemnity."
+    window hide
+    pause 2.0
 
+    scene bg temple_path_half with slow_dissolve
+    show bg temple_path_half at slow_walk_zoom
+    pause 1.0
+    window show
+    play ambience footsteps fadein 1.0 volume 0.6
     n "Yet today, as the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of Emiko's steps behind her."
-
+    show aya bored at stage_right with dissolve
     a "Three paces, even here."
 
-    show emiko_armor_alert at right
-
-    e "Yes, Priestess."
+    show emiko neutral at stage_left with dissolve
+    gu "Yes, Priestess."
 
     a "You never tire of it?"
-
-    e "Of duty?"
-
+    show emiko stoic
+    gu "Of duty?"
     a "Of distance."
-
+    show emiko neutral
     n "The question drifted back lightly, almost idle."
     n "It still landed between them with more weight than Aya intended."
-
-    e "It is the appointed measure."
-
+    show emiko shy
+    pause 1.0
+    show emiko neutral
+    gu "...."
+    gu "It is the appointed measure."
     n "Correct. Calm. Impenetrable."
     n "And still not truly an answer."
 
-    show aya_robes_teasing at left
-
+    show aya smile
     a "I suppose I should be grateful."
+    show aya laugh
     a "If you walked at my side, everyone would stare."
     a "They might think my guard more interesting than the Moon's own mouthpiece."
-
-    e "No one looks at the guard when the priestess is before them."
-
+    show emiko stoic
+    gu "...."
+    show emiko neutral
+    gu "No one looks at the guard when the priestess is before them."
     n "Aya almost laughed at the sincerity of it."
-
+    show emiko neutral
     if aya_complaint_style == "dramatic":
         a "I do."
         a "Frequently, I fear."
@@ -253,44 +264,40 @@ label s2_quiet_complaints:
     else:
         a "I notice you."
         a "Even when I pretend not to."
-
+    show emiko blush
     n "That earned no spoken reply."
     n "But the air behind her shifted, subtle as a change in wind before rain."
 
     pause 0.4
-
     a "Emiko."
 
-    show emiko_armor_startled at right
-
+    show emiko shocked
     n "It was the first time that day she had used the name plainly on the open road."
-
+    show emiko blush
+    pause 1.0
+    show emiko neutral
     e "…Yes."
-
     n "The answer came a fraction late."
-
     a "Thank you for walking with me."
     a "Not only today."
 
     e "It is my duty."
-
     a "Of course."
     a "Still, I am glad it is you."
-
+    hide aya with slow_dissolve
+    hide emiko with slow_dissolve
+    
+    pause 1.0
     n "The procession continued around a bend in the mountain road."
     n "Only Aya noticed how Emiko's footfalls missed their perfect rhythm for half a heartbeat before settling again."
-
     n "The path narrowed after that, roots lifting the old stones into uneven ridges."
     n "Aya's sandal caught—not enough for a fall, only enough for her balance to tilt."
-
-    show emiko_armor_reach at right
-
-    n "Emiko moved instantly, one step closer before thought could restrain her, weight shifting to catch what had not quite happened."
+    n "The guard, Emiko- moved instantly, one step closer before thought could restrain her, weight shifting to catch what had not quite happened."
 
     pause 0.2
 
-    show emiko_armor_neutral at right
-
+    show emiko neutral at stage_left with dissolve
+    show aya bored at stage_right with dissolve
     n "Aya recovered on her own, but she still felt the almost of Emiko's hand at her arm."
 
     if aya_complaint_style == "dramatic":
@@ -314,45 +321,83 @@ label s2_quiet_complaints:
 
     n "For a heartbeat, the space between them tightened, full of everything Aya had not meant to admit."
 
+    show bg piggyback with dissolve
+    show aya laugh at stage_right
+
+    show bg piggyback2 with slow_dissolve
+
     a "Instead, exhausted as I am, I have half a mind to order you to let me ride on your back the rest of the way like a spoiled child."
 
-    show emiko flustered at stage_right
+    show emiko blush at stage_left
 
+    gu "The{w=0.35}...the attendants would find that not to be appropriate, Priestess."
+
+    # Flash in, shake, swap bg, flash out
+    show white_flash with Dissolve(0.05)
+    show layer master at screenshake
+    show bg temple_path_half
+    hide white_flash with Dissolve(0.25)
+    pause 0.25
+    show layer master at default
+    show aya bored        
+    a "You're no fun."
+    a "But, no. It wouldn't. It{i}would{/i} be merciful to my feet."
+    hide aya with dissolve
+    hide emiko with dissolve
     n "The moment folded neatly back into familiar banter."
-
-    e "That would not be dignified, Priestess."
-
-    a "No."
-    a "But it would be merciful to my feet."
-
     n "Aya let the joke stand as a shield, even while something quieter ached beneath it."
-
+    show emiko scanning at stage_left with dissolve
     e "The next way-station is close."
+    show emiko neutral
     e "You can rest there before the final ascent."
-
+    show aya bored at stage_right with dissolve
     a "You checked already, I assume."
-
+    show emiko neutral
     e "Twice."
-
+    show aya soft
     n "Aya's smile deepened."
-
     a "How fortunate for me."
+    window hide
+    pause 1.0
+    scene bg temple_path_bench with slow_dissolve
+    pause 1.5
+    show aya tired at stage_right with dissolve
+    window show
     a "What would become of the holy order without your relentless suspicion of inadequate shade?"
-
+    show emiko stoic at stage_left with dissolve
     e "It would survive."
-
+    show aya bored
     a "Mm. Perhaps."
+    show aya tired
     a "I might not."
+    e "...."
+    show emiko neutral
+    e "You {i}will.{/i}."
+    e "You always do."
+    show aya bored
+    a "...."
+    hide emiko with dissolve
+    hide aya with dissolve
+    pause 0.5
+    show bg temple_path_half with dissolve
+    play ambience forestamb fadein 1.0 volume 0.5
+    play overamb footsteps fadein 1.0 volume 0.6
+    play music bgm_pilgrimage_soft fadein 2.0 volume 1.0
 
     n "Silence followed, but it was no longer empty."
     n "It carried the weight of years, of habit worn smooth by repetition, of affection so carefully hidden it had learned to move inside smaller and smaller spaces."
-
     n "The road climbed on toward the high moon shrine, the procession a narrow line between stone and sky."
-
+    show bg black with slow_dissolve
+    stop overamb fadeout 1.0
+    stop music fadeout 2.0
+    pause 2.2
     a "{i}Stay with me, Emiko.{/i}"
-
     n "She did not say it aloud."
     n "She did not need to."
+    hide bokeh onlayer overlay_bg with dissolve
+    window hide
+    show bg black with slow_dissolve
+    pause 3.0
 
     if aya_soft_points >= 1:
         $ hidden_moon_scene_unlocked = True
@@ -361,7 +406,6 @@ label s2_quiet_complaints:
         return
 
 label s2_hidden_moon_coda:
-
     scene bg_high_moon_shrine_night with fade
     play music "bgm_moon_rite.ogg" fadein 1.5
 
