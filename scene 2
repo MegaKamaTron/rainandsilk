@@ -411,6 +411,8 @@ label s2_hidden_moon_coda:
     pause 1.0
     n "By the time the final ascent ended, the shrine had gone silver with night."
     n "The attendants withdrew one by one, leaving only Aya, Emiko, and the cold clear hush of the mountain."
+    show bg temple_door with dissolve 
+    pause 1.0
     n "Beyond the carved gates of the inner sanctum, the moon rite waited."
     show aya bored at stage_right with dissolve
     show emiko neutral at stage_left with dissolve
@@ -420,45 +422,44 @@ label s2_hidden_moon_coda:
     n "She stepped back into her proper place at the threshold, close enough to guard, far enough not to intrude."
 
     a "I know."
-    a "You always do."
-
+    a "{i}You always do.{/i}"
+    show emiko shy
     n "For the smallest moment, Emiko's gaze lifted."
+    show emiko neutral
     n "Then she lowered it again and turned toward the outer dark."
-
+    e "May the goddess watch over you, Priestess."
+    window hide
     hide emiko neutral with dissolve
-
+    hide aya with dissolve
+    show bg temple_interior with slow_dissolve
+    pause 1.0
+    window show
     n "Alone at last, Aya exhaled in a long, ungraceful stream and set the ritual tray beside the moon basin."
     n "Her shoulders ached. Her feet ached. Even the silver weight of her hair ornaments had begun to feel ceremonial in the cruelest possible way."
-
     show aya soft at center
-
     a "Well."
     a "If the goddess intends to speak tonight, I would be grateful if she could do it before my legs give out beneath me."
-
+    show aya bored
     a "I spend enough time listening."
     a "She might try listening back once in a while."
-
+    show aya vulnerable at center
+    a "..."
     n "The words were meant lightly."
     n "The shrine gave her only moonlight in return."
-
     a "For a moment, I think Emiko listens to me better than you do."
-
     pause 0.5
-
     n "Aya went still."
     n "The truth of it landed more softly than shame, and more sharply."
-
     a "That was unwise."
-
     n "A tired laugh escaped her, quiet and brief."
-
+    show aya soft at center
     a "Forget I said it."
     a "You are a goddess. I am trying to be respectful."
 
     n "She closed her eyes for a moment, gathering herself."
     n "When she opened them again, the priestess had settled over the woman like a familiar veil."
 
-    show aya soft at center
+    hide aya with slow_dissolve
 
     n "Aya knelt before the basin, straightened her sleeves, and lifted her hands toward the moon."
     n "The mountain wind stirred the prayer streamers overhead."
