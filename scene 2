@@ -141,7 +141,7 @@ label s2_quiet_complaints:
 
     $ menu_owner = "aya"
     menu:
-        "How does Aya handle it?"
+        "Aya considered the road, and what to do with the ache of it.”
 
         "Overly dramatic":
             $ aya_complaint_style = "dramatic"
