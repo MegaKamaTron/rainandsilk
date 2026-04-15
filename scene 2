@@ -131,7 +131,7 @@ label s2_quiet_complaints:
     n "The sacred road to the high moon shrine wound along the hillside in a slow, unending ribbon of stone, each step marked by weathered prayer-steles and wind-worn flags."
     n "Once each full moon, Aya made this pilgrimage as the Moon's Mouthpiece, and every time she told herself the climb would feel lighter beneath her feet."
     n "It never did."
-    
+
     show trees_left with slow_dissolve
     show cloud_drifts onlayer master:
         alpha 0.6 
@@ -161,6 +161,9 @@ label s2_quiet_complaints:
     n "The stoic guard said nothing to that."
     n "She kept the distance exactly as she always did: three measured steps, never closer, never farther, as if the space itself were part of the rite."
 
+########################################
+# MENU 2 #
+########################################
     $ menu_owner = "aya"
     menu:
         "How does Aya handle it?"
@@ -199,7 +202,11 @@ label s2_quiet_complaints:
         show aya laugh at stage_right
         a "And if I do not, you may tell everyone I was defeated by devotional architecture."
         n "Aya said it lightly, with just enough humor to flatten whatever truth sat underneath."
-    show emiko shy
+########################################
+# END MENU 2 #
+########################################   
+    
+        show emiko shy
     gu "...."
     gu "You are in pain."
     show aya bored
@@ -249,6 +256,10 @@ label s2_personal_question:
     n "For a stretch of road, it was only the two of them and the wind."
     a "Guard."
     gu "Priestess?"
+
+########################################
+# MENU 3 #
+########################################
     label .pick_loop:
 
     $ inventory_valid_item = "memory"
@@ -268,6 +279,9 @@ label .correct:
     a "I'm curious."
     e "Priestess?"
     jump s2_fond_memory
+########################################
+# MENU 3 #
+########################################
 
 label s2_fond_memory:
     a "Before all of this."
@@ -310,8 +324,11 @@ label s2_waterskin:
 label scene_emiko_needs_water:
 
     a "I have been walking for hours. Do you have anything to drink?"
+########################################
+# MENU 4 #
+########################################
 
-    ## Loop until the player picks the right item
+# Loop until the player picks the right item
     label .pick_loop:
 
         $ inventory_valid_item = "waterskin"
@@ -331,6 +348,9 @@ label scene_emiko_needs_water:
         e "Thank you. I thought I might not make it."
         jump next_scene
 
+########################################
+# MENU 4 #
+########################################
         
     show emiko stoic
     gu "You have not drunk since morning."
@@ -506,13 +526,11 @@ label s2_distance_talk:
 
     show bg piggyback with dissolve
     show aya laugh at stage_right
-
     show bg piggyback2 with slow_dissolve
 
     a "Instead, exhausted as I am, I have half a mind to order you to let me ride on your back the rest of the way like a spoiled child."
 
     show emiko blush at stage_left
-
     gu "The{w=0.35}...the attendants would find that not to be appropriate, Priestess."
 
     # Flash in, shake, swap bg, flash out
