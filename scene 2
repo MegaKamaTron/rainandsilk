@@ -7,9 +7,35 @@ image cloud_drifts:
         xpos 0
         repeat
 label start:
-label test_audio_2:
-    play ambience "audio/footsteps.mp3"
-    "Listen."
+
+label prologue:
+    scene bg black with slow_dissolve
+    window hide
+    play ambience forestamb fadein 1.5 volume 0.8
+    play music hazymoon fadein 2.0 volume 0.7
+    pause 1.8
+
+    nc "The first full moon after Aya became high priestess rose cold and silver above the mountain."
+    nc "She had not yet learned to hide the tremor in her hands when she lit the inner lanterns."
+    nc "The rite was older than the shrine itself—words spoken to the moon that no one was ever meant to hear."
+
+    nc "Outside, at the foot of the inner steps, a single figure stood motionless."
+    nc "The new guard had only been assigned to the shrine three weeks earlier. No one had told her to wait."
+    nc "She simply did."
+
+    nc "The wind moved through the cedar branches. Lantern light painted faint gold across the guard’s shoulders."
+    nc "She did not shift her weight. She did not look away from the closed doors where the Priestess knelt alone inside."
+    nc "That night, something quiet and stubborn took root in her chest—something that would never again let her leave before the rite was finished."
+
+    nc "Years would pass. The path would wear smooth beneath their feet. The words they never spoke would grow heavier with every full moon."
+    nc "But it had begun here, with one woman inside speaking to the sky, and another woman outside keeping watch over a silence she was never meant to share."
+
+    window hide
+    scene bg black with slow_dissolve
+    stop music fadeout 3.0
+    stop ambience fadeout 2.0
+    pause 2.5
+
     jump s1_chamber
 
 label s1_chamber:
@@ -17,8 +43,6 @@ label s1_chamber:
     with dissolve
     play ambience lightrain fadein 2.5 volume 0.8
     play music temple_theme fadein 2.0 volume 0.3
-
-    gu "Early morning had arrived quietly over the temple grounds, leaving the outer courtyards hushed beneath a growing light...."
 
     n "A light rain pattered against the windowsill, wayward drops pooling and sliding down the wood in haphhazard patterns."
 
@@ -47,7 +71,7 @@ label s1_chamber:
 ########################################
 # MENU 1 #
 ########################################
-    $ menu_owner = "aya"
+    $ menu_owner == "aya"
     menu:
         "Charge. Will you follow me to the courtyard?":
             $ aya_soft_points += 1
@@ -57,7 +81,7 @@ label s1_chamber:
         "Guard. Follow me to the courtyard.":
             gu "As you wish, Priestess."
             n "The request was direct and simple. No room for refusal, yet said with a tone that still suggested there wasn't any sharpness to it."
-    $ menu_owner = None
+    $ menu_owner == None
 ########################################
 # END MENU 1 #
 ########################################
@@ -107,18 +131,17 @@ label s2_quiet_complaints:
     n "The sacred road to the high moon shrine wound along the hillside in a slow, unending ribbon of stone, each step marked by weathered prayer-steles and wind-worn flags."
     n "Once each full moon, Aya made this pilgrimage as the Moon's Mouthpiece, and every time she told herself the climb would feel lighter beneath her feet."
     n "It never did."
+    
     show trees_left with slow_dissolve
     show cloud_drifts onlayer master:
-        alpha 0.6  # Adjust this to make the shadows more or less subtle
-        additive 0.0 # Keep it as a darkening shadow
+        alpha 0.6 
+        additive 0.0 
     show trees_right onlayer foreground with slow_dissolve
     show aya vulnerable at stage_right with dissolve
-    # show character_shadow as aya_shadow at stage_right:
-    #     alpha 0.5
+
     n "Priestess Aya walked at an unhurried pace near the center of the procession, white-and-soft blue robes catching stray sunbeams."
     show emiko neutral at stage_left with dissolve
-    # show character_shadow as emiko_shadow at stage_left:
-    #     alpha 0.5
+
     n "Three precise steps behind her, as always, her guard followed in quiet shadow—armor dark, expression unreadable, hand resting lightly on the hilt of her sword."
     
     show aya laugh at stage_right
@@ -133,7 +156,6 @@ label s2_quiet_complaints:
     show emiko stoic at stage_left
 
     gu "The shrine is still ahead, Priestess."
-
     a "Cruelly ahead."
     show emiko neutral at stage_left
     n "The stoic guard said nothing to that."
@@ -141,7 +163,7 @@ label s2_quiet_complaints:
 
     $ menu_owner = "aya"
     menu:
-        "Aya considered the road, and what to do with the ache of it.”
+        "How does Aya handle it?"
 
         "Overly dramatic":
             $ aya_complaint_style = "dramatic"
@@ -214,21 +236,181 @@ label s2_quiet_complaints:
     n "Aya's complaints had long since become part of such journeys—small bright threads drawn through the solemnity."
     window hide
     pause 2.0
+    
+    jump s2_personal_question
 
+
+label s2_personal_question:
+
+    show aya soft at stage_right with dissolve
+    show emiko neutral at stage_left with dissolve
+
+    n "The procession ahead rounded a wide curve, stretching the line thin."
+    n "For a stretch of road, it was only the two of them and the wind."
+    a "Guard."
+    gu "Priestess?"
+    label .pick_loop:
+
+    $ inventory_valid_item = "memory"
+    $ INVENTORY_WRONG_MSG = "That is not needed right now."
+    $ item_used = renpy.call_screen("inventory_screen")
+    $ inventory_valid_item = ""
+    $ INVENTORY_WRONG_MSG = "That will not be useful here."
+
+    if item_used == "memory":
+        jump .correct
+    else:
+        ## Wrong item was picked — loop back
+        jump .pick_loop
+
+label .correct:
+    $ inventory_remove("memory")
+    a "I'm curious."
+    e "Priestess?"
+    jump s2_fond_memory
+
+label s2_fond_memory:
+    a "Before all of this."
+    a "Before the post. Before the sword."
+    a "What did you want to be?"
+
+    n "The question came out more plainly than Aya had meant it."
+    pause 0.6
+
+    show emiko shy
+    n "Emiko said nothing for long enough that it became something."
+    pause 0.8
+
+    show emiko neutral
+    gu "...."
+    gu "I don't remember wanting something different."
+
+    show aya soft
+    a "Nothing at all?"
+
+    show emiko stoic
+    gu "I was assigned young."
+    n "It was not an answer."
+    n "It was not meant to be."
+
+    show aya bored
+    a "I see."
+
+    n "Aya faced forward again."
+    n "The answer stayed with her longer than she had expected."
+    n "The evenness of it was what caught her. That Emiko had not hesitated, had not looked away."
+    n "Just said it, flatly, as though the question had never arrived before and did not trouble her now."
+    n "Aya could not decide which of those was the harder thing to hold."
+
+label s2_waterskin:
+    pause 1.5
+    show emiko neutral at stage_left with dissolve
+    n "The guard said nothing as she reached into the fold of her pack and held out a waterskin without looking directly at Aya."
+
+label scene_emiko_needs_water:
+
+    a "I have been walking for hours. Do you have anything to drink?"
+
+    ## Loop until the player picks the right item
+    label .pick_loop:
+
+        $ inventory_valid_item = "waterskin"
+        $ INVENTORY_WRONG_MSG = "Emiko glances at it. That is not what I need right now."
+        $ item_used = renpy.call_screen("inventory_screen")
+        $ inventory_valid_item = ""
+        $ INVENTORY_WRONG_MSG = "That will not be useful here."
+
+        if item_used == "waterskin":
+            jump .correct
+        else:
+            ## Wrong item was picked — loop back
+            jump .pick_loop
+
+    label .correct:
+        $ inventory_remove("waterskin")
+        e "Thank you. I thought I might not make it."
+        jump next_scene
+
+        
+    show emiko stoic
+    gu "You have not drunk since morning."
+    show aya bored
+    a "I was about to."
+    show aya soft
+    a "Eventually."
+    n "She took it anyway."
+    n "The water was cool, which meant Emiko had kept it shaded. Aya did not ask how."
+
+    show aya tired
+    a "Do you eat, on these roads?"
+    show emiko neutral
+    gu "Priestess?"
+    a "I never see you stop."
+    a "You are always standing. Always watching."
+    a "Somewhere in all of that, do you eat?"
+
+    show emiko shy
+    gu "...."
+    show emiko neutral
+    gu "The guard eats when the charge is resting."
+    show aya soft
+    a "So you wait."
+    gu "Yes."
+    a "Every time."
+    gu "Yes, Priestess."
+
+    n "It was said simply, without complaint or pride."
+    n "Aya looked at the waterskin in her hands."
+
+    show aya vulnerable
+    a "I have never thought to ask before."
+
+    show emiko stoic
+    gu "There is no reason you should have."
+
+    n "That was the trouble."
+    n "It was true, and Aya wished it weren't."
+
+    show aya bored
+    a "Sit, then."
+    a "While I rest. Sit and eat something."
+
+    show emiko shocked
+    n "The guard's composure held, but barely."
+
+    show emiko neutral
+    gu "That would not be proper, Priestess."
+
+    show aya soft
+    a "Probably not."
+    a "Sit anyway."
+    a "That's an order."
+
+    pause 0.8
+    show emiko shy
+    n "For once, Emiko did not argue protocol."
+    n "She lowered herself to a nearby stone, just at the edge of propriety, and together, ate in silence."
+    hide aya with dissolve
+    hide emiko with dissolve
+    play music bgm_pilgrimage_soft volume 0.3
+
+    jump s2_distance_talk
+
+label s2_distance_talk:
     scene bg temple_path_half with slow_dissolve
     show bg temple_path_half at slow_walk_zoom
     pause 1.0
     window show
     play ambience footsteps fadein 1.0 volume 0.6
-    n "Yet today, as the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of Emiko's steps behind her."
+    n "As the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of Emiko's steps behind her."
+
     show aya bored at stage_right with dissolve
     a "Three paces, even here."
-
     show emiko neutral at stage_left with dissolve
     gu "Yes, Priestess."
-
     a "You never tire of it?"
     show emiko stoic
+    
     gu "Of duty?"
     a "Of distance."
     show emiko neutral
@@ -253,6 +435,7 @@ label s2_quiet_complaints:
     gu "No one looks at the guard when the priestess is before them."
     n "Aya almost laughed at the sincerity of it."
     show emiko neutral
+    
     if aya_complaint_style == "dramatic":
         a "I do."
         a "Frequently, I fear."
@@ -359,6 +542,8 @@ label s2_quiet_complaints:
     a "How fortunate for me."
     window hide
     pause 1.0
+    
+
     scene bg temple_path_bench with slow_dissolve
     pause 1.5
     show aya tired at stage_right with dissolve
@@ -384,9 +569,34 @@ label s2_quiet_complaints:
     play overamb footsteps fadein 1.0 volume 0.6
     play music bgm_pilgrimage_soft fadein 2.0 volume 1.0
 
-    n "Silence followed, but it was no longer empty."
+label s2_temple_arrival:
+    scene bg_temple_dusk with slow_dissolve
+    play ambience forestamb fadein 1.0 volume 1.0
+    play overamb footsteps fadein 1.0 volume 0.6
+    pause 2.0
+    n "Silence followed them, but it was no longer empty."
     n "It carried the weight of years, of habit worn smooth by repetition, of affection so carefully hidden it had learned to move inside smaller and smaller spaces."
     n "The road climbed on toward the high moon shrine, the procession a narrow line between stone and sky."
+
+    stop overamb fadeout 1.5
+
+    n "They reached the upper courtyard as the last of the daylight bled from the sky. Stone lanterns hummed with new flame, casting long, flickering shadows across ancient wood and moss-covered stone. The air tasted of cedar and cool earth."
+
+    n "Aya's legs ached with the familiar resentment of the climb. She had always hated this path, the way it demanded surrender from her body. Yet Emiko had walked beside her every single time. Unasked. Unwavering."
+    A "As always, the path here is merciless. I am glad its cruelty is over, at least for the day."
+    e "You endure it well, Priestess."
+    n "The words were gentle on the surface. Beneath them lay years of things left unsaid, the kind of endurance that had nothing to do with stone steps."
+
+    a "Wait for me."
+    n "Aya paused at the base of the inner shrine steps, her voice quieter than she meant it to be."
+    a "Here. Just... wait for me."
+    e "..."
+    window hide
+    pause 1.0
+    window show
+    e "Always, Priestess."
+    n "Emiko's expression remained perfectly stoic, the same unreadable mask she had worn for years. Nothing in her face betrayed the weight behind the single word."
+
     show bg black with slow_dissolve
     stop overamb fadeout 1.0
     stop music fadeout 2.0
