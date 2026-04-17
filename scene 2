@@ -66,7 +66,7 @@ label s1_chamber:
     a "No. I don't need assistance."
     a "Despite it all, I can dress myself."
 
-    n "She forced her gaze from Emiko's reflection and fixed it instead on the open lattice beyond the room, where early morning light silvered the garden stones."
+    n "She forced her gaze from her guard's reflection and fixed it instead on the open lattice beyond the room, where early morning light silvered the garden stones."
 
 ########################################
 # MENU 1 #
@@ -118,27 +118,31 @@ label s1_chamber:
 
 label s2_quiet_complaints:
     pause 1.0
-    scene bg black 
-    with dissolve
+    scene bg black with dissolve
     play ambience forestamb fadein 2.0 volume 1.0
     pause 2.0
     play music bgm_pilgrimage_soft fadein 1.5
     pause 1.5
-    scene bg temple_path with slow_dissolve
+    show bg_temple_ani with dissolve
+    show cherry_petals_near at leaf_breathe onlayer fx_mid with slow_dissolve
     show screen bokeh onlayer overlay_bg
     pause 2.0
 
     n "The sacred road to the high moon shrine wound along the hillside in a slow, unending ribbon of stone, each step marked by weathered prayer-steles and wind-worn flags."
     n "Once each full moon, Aya made this pilgrimage as the Moon's Mouthpiece, and every time she told herself the climb would feel lighter beneath her feet."
     n "It never did."
+    window hide
 
-    show trees_left with slow_dissolve
+    # show trees_left with slow_dissolve
     show cloud_drifts onlayer master:
         alpha 0.6 
         additive 0.0 
-    show trees_right onlayer foreground with slow_dissolve
+    show screen fx_top("grass_top", leaf_breathe) with dissolve_2
+    # show trees_right onlayer foreground with slow_dissolve
     show aya vulnerable at stage_right with dissolve
-
+    # $ fx.mid("cherry_petals_near")
+    pause 2.0
+    window show dissolve_2
     n "Priestess Aya walked at an unhurried pace near the center of the procession, white-and-soft blue robes catching stray sunbeams."
     show emiko neutral at stage_left with dissolve
 
@@ -195,7 +199,7 @@ label s2_quiet_complaints:
         a "Everything troubles me on pilgrimage days."
         a "I simply prefer to remain elegant about it."
 
-        n "The answer came dry and effortless, but Emiko had watched her long enough to hear the truth tucked beneath the polish."
+        n "The answer came dry and effortless, but the guard had watched her long enough to hear the truth tucked beneath the polish."
 
     else:
         a "I will survive."
@@ -241,20 +245,26 @@ label s2_quiet_complaints:
     hide cloud_drifts
     n "A few attendants ahead of them hid polite smiles and kept their eyes forward."
     n "Aya's complaints had long since become part of such journeys—small bright threads drawn through the solemnity."
-    window hide
+    window hide dissolve_2
+    hide cloud_drifts
+    hide screen fx_top
+    hide screen fx_mid
+    hide cherry_petals_near onlayer fx_mid
     pause 2.0
-    
     jump s2_personal_question
 
-
 label s2_personal_question:
-
-    show aya soft at stage_right with dissolve
-    show emiko neutral at stage_left with dissolve
-
+    scene bg_path_02 with slow_dissolve
     n "The procession ahead rounded a wide curve, stretching the line thin."
     n "For a stretch of road, it was only the two of them and the wind."
+    show tree_near at leaf_breathe onlayer fx_mid with dissolve
+    show petals_light at leaf_breathe onlayer fx_mid with slow_dissolve
+    show screen fx_top("grass_top_02", leaf_breathe) with dissolve_2
+    show aya soft at stage_right with dissolve
+    show emiko neutral at stage_left with dissolve
+    window show dissolve_2
     a "Guard."
+    show emiko stoic at stage_left
     gu "Priestess?"
 
 ########################################
@@ -277,7 +287,6 @@ label s2_personal_question:
 label .correct:
     $ inventory_remove("memory")
     a "I'm curious."
-    e "Priestess?"
     jump s2_fond_memory
 ########################################
 # MENU 3 #
@@ -292,7 +301,7 @@ label s2_fond_memory:
     pause 0.6
 
     show emiko shy
-    n "Emiko said nothing for long enough that it became something."
+    n "Her guard said nothing for long enough that it became something."
     pause 0.8
 
     show emiko neutral
@@ -309,20 +318,29 @@ label s2_fond_memory:
 
     show aya bored
     a "I see."
-
+    show aya back 
     n "Aya faced forward again."
     n "The answer stayed with her longer than she had expected."
-    n "The evenness of it was what caught her. That Emiko had not hesitated, had not looked away."
+    hide aya with dissolve
+    hide emiko with dissolve
+    n "The evenness of it was what caught her. That the guard had not hesitated, had not looked away."
     n "Just said it, flatly, as though the question had never arrived before and did not trouble her now."
-    n "Aya could not decide which of those was the harder thing to hold."
+    hide screen fx_top with dissolve
+    hide bokeh onlayer overlay_bg with dissolve
+    show bg black with dissolve
+    pause 1.0
+    n "The Priestess could not decide which of those was the harder thing to hold."
+    window hide dissolve_2
+    pause 2.0
 
 label s2_waterskin:
+    scene bg_path_03 with slow_dissolve
+    show screen fx_top ("rock_top") with dissolve_2
     pause 1.5
     show emiko neutral at stage_left with dissolve
-    n "The guard said nothing as she reached into the fold of her pack and held out a waterskin without looking directly at Aya."
-
-label scene_emiko_needs_water:
-
+    window show dissolve_2
+label scene_aya_needs_water:
+    show aya tired at stage_right with dissolve
     a "I have been walking for hours. Do you have anything to drink?"
 ########################################
 # MENU 4 #
@@ -330,9 +348,8 @@ label scene_emiko_needs_water:
 
 # Loop until the player picks the right item
     label .pick_loop:
-
         $ inventory_valid_item = "waterskin"
-        $ INVENTORY_WRONG_MSG = "Emiko glances at it. That is not what I need right now."
+        $ INVENTORY_WRONG_MSG = "That is not what is needed right now."
         $ item_used = renpy.call_screen("inventory_screen")
         $ inventory_valid_item = ""
         $ INVENTORY_WRONG_MSG = "That will not be useful here."
@@ -345,23 +362,22 @@ label scene_emiko_needs_water:
 
     label .correct:
         $ inventory_remove("waterskin")
-        e "Thank you. I thought I might not make it."
+        n "The guard said nothing as she reached into the fold of her pack and held out a waterskin without looking directly at Aya."
         jump next_scene
 
 ########################################
 # MENU 4 #
 ########################################
-        
+label next_scene:
     show emiko stoic
     gu "You have not drunk since morning."
     show aya bored
     a "I was about to."
-    show aya soft
     a "Eventually."
     n "She took it anyway."
-    n "The water was cool, which meant Emiko had kept it shaded. Aya did not ask how."
+    n "The water was cool, which meant her guard had kept it shaded. Aya did not ask how."
 
-    show aya tired
+    show aya bored
     a "Do you eat, on these roads?"
     show emiko neutral
     gu "Priestess?"
@@ -380,16 +396,16 @@ label scene_emiko_needs_water:
     gu "Yes, Priestess."
 
     n "It was said simply, without complaint or pride."
-    n "Aya looked at the waterskin in her hands."
+    n "The Priestess looked at the waterskin in her hands."
 
     show aya vulnerable
     a "I have never thought to ask before."
 
     show emiko stoic
     gu "There is no reason you should have."
-
+    show emiko neutral
     n "That was the trouble."
-    n "It was true, and Aya wished it weren't."
+    n "It was true, and she wished it weren't."
 
     show aya bored
     a "Sit, then."
@@ -398,7 +414,7 @@ label scene_emiko_needs_water:
     show emiko shocked
     n "The guard's composure held, but barely."
 
-    show emiko neutral
+    show emiko blush
     gu "That would not be proper, Priestess."
 
     show aya soft
@@ -407,28 +423,33 @@ label scene_emiko_needs_water:
     a "That's an order."
 
     pause 0.8
-    show emiko shy
-    n "For once, Emiko did not argue protocol."
-    n "She lowered herself to a nearby stone, just at the edge of propriety, and together, ate in silence."
-    hide aya with dissolve
     hide emiko with dissolve
-    play music bgm_pilgrimage_soft volume 0.3
+    hide aya with dissolve
+    n "For once, the Priestess's shadow did not argue protocol."
+    n "She lowered herself to a nearby stone, just at the edge of propriety, and together, ate in silence."
+    window hide dissolve_2
+    hide screen fx_top with dissolve_2
+    show bg black with dissolve
+    hide bg_path_03
+    stop ambience fadeout 2.0
+    stop music fadeout 2.0
+    pause 3.0
 
     jump s2_distance_talk
 
 label s2_distance_talk:
-    scene bg temple_path_half with slow_dissolve
-    show bg temple_path_half at slow_walk_zoom
-    pause 1.0
-    window show
-    play ambience footsteps fadein 1.0 volume 0.6
-    n "As the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of Emiko's steps behind her."
+    scene bg_path_06 with slow_dissolve
+    play ambience footsteps fadein 1.0 volume 0.3 loop
+    play overamb windtrees fadein 1.0 volume 0.4 loop
+    pause 1.5
+    window show dissolve_2
+    n "As the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of her shadow's steps behind her."
 
     show aya bored at stage_right with dissolve
     a "Three paces, even here."
     show emiko neutral at stage_left with dissolve
     gu "Yes, Priestess."
-    a "You never tire of it?"
+    a "...{w=0.45}You never tire of it?"
     show emiko stoic
     
     gu "Of duty?"
@@ -446,54 +467,74 @@ label s2_distance_talk:
 
     show aya smile
     a "I suppose I should be grateful."
-    show aya laugh
+    show aya bored
     a "If you walked at my side, everyone would stare."
+    show aya laugh
     a "They might think my guard more interesting than the Moon's own mouthpiece."
-    show emiko stoic
+    show emiko blush
     gu "...."
     show emiko neutral
     gu "No one looks at the guard when the priestess is before them."
+    show aya soft
     n "Aya almost laughed at the sincerity of it."
-    show emiko neutral
-    
+
     if aya_complaint_style == "dramatic":
+        show aya bored
         a "I do."
         a "Frequently, I fear."
 
     elif aya_complaint_style == "dismissive":
+        show aya bored
         a "Well, someone has to."
         a "You'd be unbearable if left entirely unobserved."
 
     else:
+        show aya bored
         a "I notice you."
         a "Even when I pretend not to."
+
     show emiko blush
     n "That earned no spoken reply."
+
+    show emiko neutral
     n "But the air behind her shifted, subtle as a change in wind before rain."
 
-    pause 0.4
+#### EMIKO NAME DROP HERE ####
+    pause 0.5
     a "Emiko."
-
     show emiko shocked
+    pause 0.5
     n "It was the first time that day she had used the name plainly on the open road."
     show emiko blush
     pause 1.0
     show emiko neutral
     e "…Yes."
     n "The answer came a fraction late."
-    a "Thank you for walking with me."
+    show aya soft
+    a "{w=0.35}Thank you for walking with me."
     a "Not only today."
-
+    show emiko vulnerable 
+    e "..." 
+    show emiko neutral
     e "It is my duty."
     a "Of course."
     a "Still, I am glad it is you."
+    e "...."
+    window hide dissolve_2
     hide aya with slow_dissolve
     hide emiko with slow_dissolve
+    show bg black with dissolve
+    hide bg_path_06 with slow_dissolve
+    stop overamb fadeout 2.0
+    stop ambience fadeout 4.0
     
-    pause 1.0
+
+    pause 2.0
     n "The procession continued around a bend in the mountain road."
     n "Only Aya noticed how Emiko's footfalls missed their perfect rhythm for half a heartbeat before settling again."
+    scene bg_path_03 with slow_dissolve
     n "The path narrowed after that, roots lifting the old stones into uneven ridges."
+    with hpunch
     n "Aya's sandal caught—not enough for a fall, only enough for her balance to tilt."
     n "The guard, Emiko- moved instantly, one step closer before thought could restrain her, weight shifting to catch what had not quite happened."
 
@@ -523,20 +564,25 @@ label s2_distance_talk:
     a "You would think it would be easier, walking with you at my back."
 
     n "For a heartbeat, the space between them tightened, full of everything Aya had not meant to admit."
-
-    show bg piggyback with dissolve
-    show aya laugh at stage_right
-    show bg piggyback2 with slow_dissolve
-
+    # $ fx.bg("bg piggyback")
+    # $ renpy.with_statement(dissolve)
+    # show emiko neutral at stage_left
+    # show aya laugh at stage_right
+    # pause 0.5
+    show bg piggyback behind aya, emiko with dissolve
+    show aya laugh
     a "Instead, exhausted as I am, I have half a mind to order you to let me ride on your back the rest of the way like a spoiled child."
-
-    show emiko blush at stage_left
-    gu "The{w=0.35}...the attendants would find that not to be appropriate, Priestess."
-
+    show bg piggyback2 behind aya, emiko with dissolve
+    show emiko neutral
+    show emiko blush at stage_left 
+    with dissolve
+    e "The{w=0.35}...the attendants would find that not to be appropriate, Priestess."
     # Flash in, shake, swap bg, flash out
     show white_flash with Dissolve(0.05)
+    hide bg piggyback
+    hide bg piggyback2
     show layer master at screenshake
-    show bg temple_path_half
+    with hpunch
     hide white_flash with Dissolve(0.25)
     pause 0.25
     show layer master at default
@@ -582,16 +628,18 @@ label s2_distance_talk:
     hide emiko with dissolve
     hide aya with dissolve
     pause 0.5
-    show bg temple_path_half with dissolve
+    window hide dissolve_2
+    show bg black with slow_dissolve
     play ambience forestamb fadein 1.0 volume 0.5
     play overamb footsteps fadein 1.0 volume 0.6
     play music bgm_pilgrimage_soft fadein 2.0 volume 1.0
 
 label s2_temple_arrival:
-    scene bg_temple_dusk with slow_dissolve
+    scene bg temple_dusk with slow_dissolve
     play ambience forestamb fadein 1.0 volume 1.0
     play overamb footsteps fadein 1.0 volume 0.6
-    pause 2.0
+    pause 3.0
+    window show dissolve_2
     n "Silence followed them, but it was no longer empty."
     n "It carried the weight of years, of habit worn smooth by repetition, of affection so carefully hidden it had learned to move inside smaller and smaller spaces."
     n "The road climbed on toward the high moon shrine, the procession a narrow line between stone and sky."
@@ -601,39 +649,52 @@ label s2_temple_arrival:
     n "They reached the upper courtyard as the last of the daylight bled from the sky. Stone lanterns hummed with new flame, casting long, flickering shadows across ancient wood and moss-covered stone. The air tasted of cedar and cool earth."
 
     n "Aya's legs ached with the familiar resentment of the climb. She had always hated this path, the way it demanded surrender from her body. Yet Emiko had walked beside her every single time. Unasked. Unwavering."
-    A "As always, the path here is merciless. I am glad its cruelty is over, at least for the day."
+    show aya bored at stage_right with dissolve
+    show emiko neutral at stage_left with dissolve
+    a "As always, the path here is merciless. I am glad its cruelty is over, at least for the day."
     e "You endure it well, Priestess."
     n "The words were gentle on the surface. Beneath them lay years of things left unsaid, the kind of endurance that had nothing to do with stone steps."
-
+    hide aya 
+    hide emiko
+    show bg temple_door with dissolve
+    pause 1.0
+    show aya vulnerable at stage_right with dissolve
+    show emiko stoic at stage_left with dissolve
+    pause 1.5
     a "Wait for me."
     n "Aya paused at the base of the inner shrine steps, her voice quieter than she meant it to be."
     a "Here. Just... wait for me."
     e "..."
-    window hide
     pause 1.0
-    window show
     e "Always, Priestess."
-    n "Emiko's expression remained perfectly stoic, the same unreadable mask she had worn for years. Nothing in her face betrayed the weight behind the single word."
-
+    pause 1.0
+    hide aya 
+    with dissolve
+    hide emiko 
+    with dissolve
     show bg black with slow_dissolve
+    n "Emiko's expression remained perfectly stoic, the same unreadable mask she had worn for years. Nothing in her face betrayed the weight behind the single word."
+    window hide dissolve
     stop overamb fadeout 1.0
     stop music fadeout 2.0
-    pause 2.2
+    pause 2.5
     a "{i}Stay with me, Emiko.{/i}"
     n "She did not say it aloud."
     n "She did not need to."
-    hide bokeh onlayer overlay_bg with dissolve
-    window hide
-    show bg black with slow_dissolve
-    pause 3.0
+    window hide dissolve
+    pause 2.0
+    show screen fx_top("bg black") with slow_dissolve
+    pause 2.0
+    hide screen fx_top with slow_dissolve
 
     if aya_soft_points >= 1:
         $ hidden_moon_scene_unlocked = True
         jump s2_hidden_moon_coda
     else:
-        return
+        jump credits
 
 label s2_hidden_moon_coda:
+    
     scene bg temple_night with slow_walk_zoom
     play music hazymoon fadein 1.5
     pause 1.0
