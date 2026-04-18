@@ -1,3 +1,4 @@
+
 image cloud_drifts:
     Tile("gui/cloud_shadows.png")
     xpos 0
@@ -6,8 +7,15 @@ image cloud_drifts:
         linear 80.0 xpos -1920 
         xpos 0
         repeat
-label start:
 
+###########################
+# GAME STARTS HERE #
+###########################
+
+label start:
+label chapter_1_start:
+    $ current_chapter = "ch1"
+    $ save_name = _("Chapter I")
 label prologue:
     scene bg black with slow_dissolve
     window hide
@@ -15,20 +23,18 @@ label prologue:
     play music hazymoon fadein 2.0 volume 0.7
     pause 1.8
 
-    nc "The first full moon after Aya became high priestess rose cold and silver above the mountain."
-    nc "She had not yet learned to hide the tremor in her hands when she lit the inner lanterns."
-    nc "The rite was older than the shrine itself—words spoken to the moon that no one was ever meant to hear."
-
-    nc "Outside, at the foot of the inner steps, a single figure stood motionless."
-    nc "The new guard had only been assigned to the shrine three weeks earlier. No one had told her to wait."
-    nc "She simply did."
-
-    nc "The wind moved through the cedar branches. Lantern light painted faint gold across the guard’s shoulders."
-    nc "She did not shift her weight. She did not look away from the closed doors where the Priestess knelt alone inside."
-    nc "That night, something quiet and stubborn took root in her chest—something that would never again let her leave before the rite was finished."
-
-    nc "Years would pass. The path would wear smooth beneath their feet. The words they never spoke would grow heavier with every full moon."
-    nc "But it had begun here, with one woman inside speaking to the sky, and another woman outside keeping watch over a silence she was never meant to share."
+    op "The first full moon after she became high priestess rose cold and silver above the mountain."
+    op "She had sixteen summers to her name, and not yet learned to hide the tremor in her hands when she lit the inner lanterns."
+    op "The rite was older than the shrine itself—words spoken to the moon that no one was ever meant to hear."
+    op "Outside, at the foot of the inner steps, a single figure stood motionless."
+    op "The new guard had only been assigned to the shrine three weeks earlier. A 'gift' to her from an overprotective court."
+    op "No one had told her to wait."
+    op "She simply did."
+    op "The wind moved through the cedar branches. Lantern light painted faint gold across the guard’s shoulders."
+    op "She did not shift her weight. She did not look away from the closed doors where the Priestess knelt alone inside."
+    op "That night, something quiet and stubborn took root in her chest—something that would never again let her leave before the rite was finished."
+    op "Seven summers would pass. The path would wear smooth beneath their feet. The words they never spoke would grow heavier with every full moon."
+    op "But it had begun here, with one woman inside speaking to the sky, and another woman outside keeping watch over a silence she was never meant to share."
 
     window hide
     scene bg black with slow_dissolve
@@ -327,13 +333,20 @@ label s2_fond_memory:
     n "Just said it, flatly, as though the question had never arrived before and did not trouble her now."
     hide screen fx_top with dissolve
     hide bokeh onlayer overlay_bg with dissolve
+    hide tree_near at leaf_breathe onlayer fx_mid with dissolve
+    hide petals_light at leaf_breathe onlayer fx_mid with dissolve
     show bg black with dissolve
     pause 1.0
     n "The Priestess could not decide which of those was the harder thing to hold."
+    stop ambience fadeout 2.0
+    stop music fadeout 2.0
     window hide dissolve_2
     pause 2.0
 
 label s2_waterskin:
+    play ambience footsteps fadein 2.0 volume 0.3 loop
+    play overamb windtrees fadein 2.0 volume 0.4 loop
+    pause 1.5
     scene bg_path_03 with slow_dissolve
     show screen fx_top ("rock_top") with dissolve_2
     pause 1.5
@@ -441,6 +454,7 @@ label s2_distance_talk:
     scene bg_path_06 with slow_dissolve
     play ambience footsteps fadein 1.0 volume 0.3 loop
     play overamb windtrees fadein 1.0 volume 0.4 loop
+    play music bgm_pilgrimage_soft fadein 1.5 volume 0.4 loop
     pause 1.5
     window show dissolve_2
     n "As the procession wound upward, Aya found herself listening not for the bells tied to the prayer poles or the shuffle of sandals on stone, but for the familiar rhythm of her shadow's steps behind her."
@@ -525,14 +539,16 @@ label s2_distance_talk:
     hide emiko with slow_dissolve
     show bg black with dissolve
     hide bg_path_06 with slow_dissolve
-    stop overamb fadeout 2.0
-    stop ambience fadeout 4.0
-    
-
+    stop overamb fadeout 4.0
+    stop music fadeout 2.0
     pause 2.0
     n "The procession continued around a bend in the mountain road."
     n "Only Aya noticed how Emiko's footfalls missed their perfect rhythm for half a heartbeat before settling again."
+    stop ambience fadeout 2.0
+    pause 2.0
     scene bg_path_03 with slow_dissolve
+    play overamb windtrees fadein 1.0 volume 0.6 loop
+    play music hazymoon fadein 1.5 volume 0.4 loop
     n "The path narrowed after that, roots lifting the old stones into uneven ridges."
     with hpunch
     n "Aya's sandal caught—not enough for a fall, only enough for her balance to tilt."
@@ -666,18 +682,22 @@ label s2_temple_arrival:
     a "Here. Just... wait for me."
     e "..."
     pause 1.0
-    e "Always, Priestess."
+    e "Always."
+    pause 0.5
+    e "May the goddess watch over you, Priestess."
     pause 1.0
-    hide aya 
-    with dissolve
     hide emiko 
+    with dissolve
+    hide aya 
     with dissolve
     show bg black with slow_dissolve
     n "Emiko's expression remained perfectly stoic, the same unreadable mask she had worn for years. Nothing in her face betrayed the weight behind the single word."
-    window hide dissolve
-    stop overamb fadeout 1.0
-    stop music fadeout 2.0
-    pause 2.5
+    window hide
+    stop overamb fadeout 0.5
+    stop ambience fadeout 0.5
+    stop music fadeout 0.5
+    play sound screen_door noloop volume 1.0
+    pause 4.0
     a "{i}Stay with me, Emiko.{/i}"
     n "She did not say it aloud."
     n "She did not need to."
@@ -694,29 +714,8 @@ label s2_temple_arrival:
         jump credits
 
 label s2_hidden_moon_coda:
-    
-    scene bg temple_night with slow_walk_zoom
-    play music hazymoon fadein 1.5
-    pause 1.0
-    n "By the time the final ascent ended, the shrine had gone silver with night."
-    n "The attendants withdrew one by one, leaving only Aya, Emiko, and the cold clear hush of the mountain."
-    show bg temple_door with dissolve 
-    pause 1.0
-    n "Beyond the carved gates of the inner sanctum, the moon rite waited."
-    show aya bored at stage_right with dissolve
-    show emiko neutral at stage_left with dissolve
-    a "You may wait outside."
-    e "Yes, Priestess."
-    n "Emiko bowed once, precise as ever."
-    n "She stepped back into her proper place at the threshold, close enough to guard, far enough not to intrude."
-
-    a "I know."
-    a "{i}You always do.{/i}"
-    show emiko shy
-    n "For the smallest moment, Emiko's gaze lifted."
-    show emiko neutral
-    n "Then she lowered it again and turned toward the outer dark."
-    e "May the goddess watch over you, Priestess."
+    scene bg temple_interior with slow_walk_zoom
+    play music hazymoon fadein 1.5 volume 0.3
     window hide
     hide emiko neutral with dissolve
     hide aya with dissolve
@@ -759,3 +758,18 @@ label s2_hidden_moon_coda:
 
     return
 
+label chapter_2_start:
+    $ current_chapter = "ch2"
+    $ save_name = _("Chapter II")
+    scene bg black with dissolve
+    nc "Chapter II is not yet available."
+    pause 2.0
+    return
+
+label chapter_3_start:
+    $ current_chapter = "ch3"
+    $ save_name = _("Chapter III")
+    scene bg black with dissolve
+    nc "Chapter III is not yet available."
+    pause 2.0
+    return
