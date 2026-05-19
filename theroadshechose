@@ -1,0 +1,613 @@
+# =========================================================
+# Chapter 4: The Thing Worth Stopping For
+# Shina & Makoto — The Meeting / The Month / The Night Before
+# NVL Style
+# =========================================================
+#
+# NOTE: Add the following to 02_characters.rpy before use:
+#
+# define sh2 = Character(
+#     "Shina",
+#     color="#B5562A",
+#     who_color="#B5562A",
+#     what_xalign=0.0,
+#     what_text_align=0.0,
+#     what_xpos=160,
+#     what_xsize=890,
+#     ctc="ctc_icon",
+#     ctc_pause="ctc_icon",
+#     ctc_timedpause="ctc_icon",
+#     ctc_position="fixed",
+#     screen="nvl"
+# )
+#
+# define mk2 = Character(
+#     "Makoto",
+#     color="#8B6A9B",
+#     who_color="#8B6A9B",
+#     what_xalign=0.0,
+#     what_text_align=0.0,
+#     what_xpos=160,
+#     what_xsize=890,
+#     ctc="ctc_icon",
+#     ctc_pause="ctc_icon",
+#     ctc_timedpause="ctc_icon",
+#     ctc_position="fixed",
+#     screen="nvl"
+# )
+#
+# NVL sprite images (add to definitions.rpy):
+# image nvl_shina neutral = "images/nvl/shina_neutral.png"
+# image nvl_shina smug = "images/nvl/shina_smug.png"
+# image nvl_shina embarrassed = "images/nvl/shina_embarrassed.png"
+# image nvl_shina scratch_head = "images/nvl/shina_scratch_head.png"
+# image nvl_makoto neutral = "images/nvl/makoto_neutral.png"
+# image nvl_makoto amused = "images/nvl/makoto_amused.png"
+# image nvl_makoto flustered_hidden = "images/nvl/makoto_flustered_hidden.png"
+#
+# Backgrounds used (existing assets):
+# bg temple_dusk — already in definitions.rpy
+# bg temple_night — already in definitions.rpy
+# bg_path_02 — already in definitions.rpy (animated)
+# bg black — already in definitions.rpy
+#
+# New audio needed:
+# audio.morning_birds — new ambient asset
+# bgm_mountain_soft — new or repurposed BGM
+# =========================================================
+
+default shina_stay_points = 0
+default road_read = 0
+
+label chapter_4_start:
+    $ current_chapter = "ch4"
+    $ save_name = _("Chapter IV")
+    $ shina_stay_points = 0
+    $ road_read = 0
+    nvl clear
+
+
+########################################
+# PROLOGUE
+########################################
+
+label ch4_prologue:
+    scene bg black with slow_dissolve
+    play ambience forestamb fadein 2.0 volume 0.7
+    play music bgm_pilgrimage_soft fadein 2.5 volume 0.3
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "The road through Hino Valley was old when the cedars were young."
+    n2 "Their roots had long since pushed through the packed earth at the edges, cracking the stones with the patience of things that knew they would win eventually."
+    n2 "Two carts could not pass each other on a good day."
+    n2 "That autumn morning was a good day. Barely."
+
+    nvl clear
+
+    n2 "She had been thinking about the bath at the sister shrine — the wood tub worn dark with use, the weight of hot water after a full day in the saddle — when the first arrow found the driver."
+    n2 "The sound it made was wrong in the specific way that sounds are wrong when the world crosses from one kind of moment into another."
+    n2 "The hired guard lasted perhaps four seconds longer."
+    n2 "Then his horse was moving. And then he was gone. And then the road was quiet in the way silence gets when it has replaced something."
+
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 2.0
+    stop ambience fadeout 2.0
+    pause 2.0
+
+    jump ch4_s1_road
+
+
+########################################
+# S1: THE ROAD
+########################################
+
+label ch4_s1_road:
+    scene bg_path_02 with slow_dissolve
+    play ambience forestamb fadein 2.0 volume 1.0
+    play music bgm_pilgrimage_soft fadein 1.5 volume 0.5
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "Seven men. The procession reduced to its essentials: two attendants who could not run, Makoto herself, and the road."
+    n2 "She stepped in front of the cart."
+    n2 "Her hands were shaking. She pressed them flat against her thighs."
+    n2 "Behind her: the sound of Sato trying to breathe steadily, and failing."
+
+    nvl clear
+
+    n2 "The girl came out of the treeline without announcing herself."
+    n2 "Dark red hair, road-worn clothes, a naginata held easy in one hand. Not quite twenty, with the look of someone the road had been working on since before it should have had her."
+    n2 "She didn't look at Makoto. She was already reading the men — their spacing, who was hesitating, who was committed — with the swift, practical attention of someone who had learned that attention was the difference."
+
+    nvl clear
+
+    n2 "She stepped forward."
+    n2 "What happened after that was efficient and brief. A body that had stopped having to think about it, working through the geometry of the problem."
+    n2 "When it was over, the road was quiet again."
+    n2 "The wind moved through the cedars. A branch settled. The last two men were gone."
+
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+    show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
+
+    sh2 "You."
+    sh2 "What were you doing?"
+    mk2 "Standing where I was."
+
+    n2 "The young woman stared at her. Something moved through her expression — not quite amusement, not quite frustration — and then settled."
+
+    sh2 "Stupid."
+    pause 0.6
+    sh2 "But I've seen worse reasons to bleed."
+
+    nvl clear
+
+    # ─── MENU 1 ───────────────────────────────────────────────
+    # Makoto's first read. What she files away.
+    # Sets the reader's orientation toward Shina before anything is known.
+    # ─────────────────────────────────────────────────────────
+    $ menu_owner = "makoto"
+    menu:
+        "What Makoto notices first."
+
+        "The grip. Already at rest.":
+            $ road_read += 1
+            $ shina_stay_points += 1
+            n2 "The naginata was back to easy carry before the last man had finished falling. Her breathing had not changed — or if it had, it had corrected itself before the count was done."
+            n2 "Makoto had watched enough people move under real pressure to understand what it meant when a body stopped having to decide."
+
+        "The eyes. Still working.":
+            $ road_read += 1
+            n2 "Even now, she was not looking at Makoto. She was checking the road. The treeline. The bend where the remaining men had disappeared."
+            n2 "Not finished. Still calculating. The problem was not over until the problem was definitively over, and she had apparently decided for herself when that was."
+
+        "The smell of the road on her.":
+            n2 "Cedar and cold air and woodsmoke. The particular smell of someone who had been sleeping outdoors long enough that it had settled into the cloth rather than sitting on top of it."
+            n2 "Not a shrine guard. Not a court appointment. Someone the road had made from other materials entirely."
+
+    $ menu_owner = None
+    # ─── END MENU 1 ───────────────────────────────────────────
+
+    hide nvl_shina neutral onlayer nvl_chars with dissolve
+    hide nvl_makoto neutral onlayer nvl_chars with dissolve
+    nvl clear
+
+    n2 "She named her price before Makoto had finished asking."
+    n2 "Three days' work at a stated rate. Paid on arrival. Meals included. If there was trouble on the road, that was part of the rate."
+    n2 "Sato made a sound."
+
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+    n2 "The young woman did not look at Sato."
+
+    mk2 "Fair. For the distance and the risk. Yes."
+
+    n2 "She turned and began righting the supply cart with the businesslike attention of someone who had already moved on to the next problem."
+
+    sh2 "Cart's salvageable. Lost some of the load when it went over."
+    sh2 "You'll want to check what broke."
+
+    nvl clear
+
+    n2 "She walked in front."
+    n2 "Not far ahead. Close enough to hear trouble before it arrived. But ahead, clearly, with no suggestion the arrangement was open for discussion."
+    n2 "The naginata rode across her shoulders in a posture that managed to look simultaneously relaxed and ready."
+    n2 "In the first hour, she said nothing."
+    n2 "In the first hour, Makoto learned the length of her stride."
+
+    hide nvl_shina neutral onlayer nvl_chars with dissolve
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 2.0
+    stop ambience fadeout 2.0
+    pause 2.0
+
+    jump ch4_s2_shrine
+
+
+########################################
+# S2: THE SHRINE
+########################################
+
+label ch4_s2_shrine:
+    scene bg temple_dusk with slow_dissolve
+    play ambience forestamb fadein 2.0 volume 0.6
+    play music temple_theme fadein 2.0 volume 0.3
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "Three days, and Makoto could have told you the exact length of Shina's stride, the way she rolled her left shoulder when the road climbed, how she took her rice — fast, without comment, like eating was a task to be completed."
+    n2 "She could not have told you where Shina was from. Or how long she'd been on the road. Or whether anyone was waiting for her somewhere."
+    n2 "Every question that reached in that direction met a short answer, or a shrug, or simply silence — offered without hostility, the way someone closes a door without slamming it."
+    n2 "Not rude. Just closed."
+
+    nvl clear
+
+    n2 "She found her on the side steps after the arrival supper."
+    n2 "Not the main staircase — the narrow ones the attendants used, functional rather than formal. Third step from the bottom. Bowl in her lap."
+    n2 "She was eating with full attention. No pretense of casualness — just the focused quiet of someone genuinely hungry who saw no reason to hide it."
+
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+    n2 "She heard Makoto's footsteps and did not look up."
+    sh2 "Not following me, are you."
+    show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "These are my steps."
+
+    n2 "A pause. Then Shina shifted slightly on the step — not moving over, exactly. Just acknowledging that there was room."
+    n2 "Makoto sat."
+    n2 "The courtyard below was empty. The gravel pale in the early dusk. From the main hall, the low sound of an evening bell, and then quiet."
+
+    nvl clear
+
+    sh2 "Three days. And you learned nothing about me."
+    mk2 "No."
+    sh2 "Doesn't bother you?"
+
+    $ duck(level=0.2, delay=0.4)
+    mk2 "I learned that you check the perimeter before you sleep. I noticed the first night."
+    mk2 "That you don't eat until the people you're responsible for have eaten. You were last to supper both evenings."
+    mk2 "That you sleep lightly. One of the attendants knocked over a water jar in the dark, the second night. You were outside her door before she'd picked it up."
+    $ unduck(level=0.3, delay=1.5)
+
+    n2 "Shina had gone still."
+
+    mk2 "Those seemed like relevant details."
+    mk2 "The rest — I expect there are reasons for."
+
+    show nvl_shina scratch_head at nvl_stage_left onlayer nvl_chars with dissolve
+    sh2 "You're strange."
+    sh2 "For a priestess."
+    show nvl_makoto amused at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "So I'm told."
+
+    n2 "She stood, straightened her robes, and went back up the steps."
+    n2 "Behind her, she heard Shina pick up the bowl again. And then, just before the passage door closed — a sound. Small. Not quite a laugh."
+    n2 "More the kind of exhale that escapes when someone wasn't expecting to be seen and doesn't entirely mind that they were."
+    n2 "Makoto let the door close without pausing."
+
+    nvl clear
+
+    hide nvl_shina scratch_head onlayer nvl_chars with dissolve
+    hide nvl_makoto amused onlayer nvl_chars with dissolve
+
+    n2 "The extended offer came the next morning, through Sato, through the open window."
+    n2 "Two months' work. Three weeks at the sister shrine. Four days' escort home. Meals and lodging."
+    n2 "The same road stretch where the ambush had been. Same risk, now known."
+
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+
+    sh2 "That's a lot of standing around for three weeks."
+    pause 0.5
+    sh2 "Fine."
+
+    n2 "Like a concession. Like it cost her something."
+    n2 "She followed them through the gate."
+
+    nvl clear
+
+    # ─── MENU 2 ───────────────────────────────────────────────
+    # What Makoto watches for, on that crossing of the threshold.
+    # ─────────────────────────────────────────────────────────
+    $ menu_owner = "makoto"
+    menu:
+        "What Makoto watches for."
+
+        "The kitchen smell reaching her.":
+            $ shina_stay_points += 1
+            n2 "Rice and miso and something with ginger — warm and specific after a day of cold road and cedar."
+            n2 "Something moved through Shina's expression when it reached her. Fast, involuntary, before her face went back to order."
+            n2 "Makoto looked away before she was caught looking."
+
+        "The way she reads the grounds.":
+            n2 "Shina stopped just inside the gate."
+            n2 "Not to admire it — or not only. More the way someone looks at a space when they are cataloguing it."
+            n2 "Exits, sightlines, the gap between the outer wall and the treeline. Her eyes moved in a specific order that had nothing to do with the garden."
+            n2 "Then she picked up her naginata and went where she was shown."
+
+    $ menu_owner = None
+    # ─── END MENU 2 ───────────────────────────────────────────
+
+    hide nvl_shina neutral onlayer nvl_chars with dissolve
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 2.0
+    stop ambience fadeout 2.0
+    pause 2.0
+
+    jump ch4_s3_month
+
+
+########################################
+# S3: THE MONTH
+########################################
+
+label ch4_s3_month:
+    scene bg temple_night with slow_dissolve
+    play ambience lightrain fadein 2.0 volume 0.4
+    play music hazymoon fadein 2.5 volume 0.2
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "A month was not a long time."
+    n2 "It was long enough."
+
+    nvl clear
+
+    n2 "The shrine had its rhythms. Shina learned them — not because anyone told her to, but the way you learn the grade of a road you walk every day until your feet know the slope before your eyes do."
+    n2 "The morning bell. The groundskeeper's arc across the raked gravel. The particular creak of the inner gate before the rites."
+    n2 "She fixed the gate latch the third day, quietly, without saying anything about it."
+
+    nvl clear
+
+    n2 "The shrine's staff had opinions about her. Most of those opinions did not survive extended contact."
+    n2 "The serving girl who had conveyed an entire personality through the angle at which she set down a tea cup decided within a week that Shina was acceptable."
+    n2 "This was, Makoto gathered, the highest available rating."
+
+    nvl clear
+
+    $ duck(level=0.2, delay=0.4)
+    n2 "She watched Shina learn the rhythm the way she watched most things — without comment, from the side."
+    n2 "What she did with the junior staff. How she moved through the hierarchy of the grounds, which was essentially by ignoring rank in favor of the question of who needed what."
+    n2 "How she stood three paces behind in formal contexts, without anyone having told her."
+    $ unduck(level=0.3, delay=1.5)
+
+    nvl clear
+
+    n2 "At the end of the third week, the lead advisor came."
+    n2 "Shadow appointment. Makoto's own selection right invoked — a break from a long-standing personal choice, which the advisor noted with appropriate delicacy."
+    n2 "The court would need to confirm the arrangement. The oath would follow, off the road and in front of witnesses."
+    n2 "Shina had until the following evening to give her answer."
+
+    nvl clear
+
+    n2 "She had not answered by morning."
+    n2 "She had not answered by noon."
+    n2 "By evening she was on the outer wall, watching the road."
+
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 2.0
+    stop ambience fadeout 2.0
+    pause 2.0
+
+    jump ch4_s4_night
+
+
+########################################
+# S4: THE NIGHT BEFORE
+########################################
+
+label ch4_s4_night:
+    scene bg temple_night with slow_dissolve
+    play ambience "audio/temple_tone.mp3" fadein 3.0 volume 0.2
+    play music hazymoon fadein 2.5 volume 0.2
+    pause 1.5
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "She was on the outer wall when Makoto found her."
+    n2 "Not the main gate — the side wall above the lower courtyard, the one the groundskeeper swept every morning. The maple tree below it had dropped half its leaves."
+    n2 "The lanterns were lit. The road beyond the gate was dark."
+
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+    n2 "Shina was sitting on the edge of the wall the way she sat everywhere — as if she had already evaluated the space for exits and found it adequate."
+    n2 "She heard Makoto below and did not look down."
+
+    sh2 "Not following me, are you."
+
+    show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "That was the first thing you ever said to me."
+    sh2 "Was it."
+    mk2 "On the side steps. Your first night here."
+    sh2 "Mm."
+    sh2 "Good line. I use it."
+
+    nvl clear
+
+    n2 "Makoto stood at the base of the wall."
+    n2 "The courtyard below was still. The maple held what leaves it had left."
+
+    mk2 "You haven't answered."
+    sh2 "Deadline's tomorrow."
+    mk2 "Yes."
+    sh2 "Plenty of time."
+
+    n2 "She was looking at the road. The quality of attention that meant she was watching it, not just looking at it."
+
+    $ duck(level=0.2, delay=0.4)
+    mk2 "The position would formalize what you already do."
+    sh2 "I know what it would do."
+    mk2 "The oath is permanent."
+    sh2 "I know what an oath is."
+    $ unduck(level=0.3, delay=1.5)
+
+    n2 "A pause. The kind that comes when both people in a conversation know what the conversation is actually about and are going around it carefully."
+
+    show nvl_makoto amused at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "I'm not here to tell you what to decide."
+    show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
+    sh2 "Good."
+    mk2 "I would just like you to have the full accounting."
+    sh2 "Full accounting."
+    mk2 "Of the relevant details."
+
+    nvl clear
+
+    n2 "Shina looked down at her for the first time."
+    n2 "Makoto met her eyes."
+
+    $ duck(level=0.1, delay=0.5)
+    mk2 "If you go — I would miss you."
+    $ unduck(level=0.2, delay=3.0)
+
+    n2 "She said it the way she said things that were true and required no ornamentation."
+    n2 "Without softening it into something more manageable."
+    n2 "Just: the fact, placed down, available."
+
+    show nvl_shina embarrassed at nvl_stage_left onlayer nvl_chars with dissolve
+    n2 "Shina looked away."
+    n2 "Back at the road. Back at the place where the lantern light ended and the dark began."
+
+    nvl clear
+
+    # ─── MENU 3 ───────────────────────────────────────────────
+    # Shina doesn't affirm right away.
+    # Every branch is a version of not-yet.
+    # The menu is the negative space where the answer lives.
+    # ─────────────────────────────────────────────────────────
+    $ menu_owner = "shina"
+    menu:
+        "Shina doesn't answer right away."
+
+        "She almost does. Then doesn't.":
+            $ shina_stay_points += 1
+            n2 "She opened her mouth."
+            n2 "There was a sentence there — the plain one, the one that would have named it."
+            n2 "She let it pass."
+            sh2 "..."
+            n2 "She kept looking at the road."
+            n2 "Which was its own kind of answer, and she probably knew that too."
+
+        "She asks something else entirely.":
+            sh2 "Is the mountain temple far from here?"
+            n2 "A pause."
+            n2 "It was not the response the moment had been asking for."
+            n2 "Makoto understood it anyway."
+            mk2 "Four days in good conditions."
+            sh2 "Mm."
+            n2 "Shina kept looking at the road."
+
+        "She says what isn't yes.":
+            $ shina_stay_points += 1
+            sh2 "I don't actually have anywhere else to be."
+            n2 "She said it at the road, not at Makoto."
+            n2 "Like it was information. Like it didn't carry anything behind it."
+            n2 "Like she hadn't been arriving at it all day."
+            show nvl_makoto flustered_hidden at nvl_stage_right onlayer nvl_chars with dissolve
+            n2 "Makoto said nothing."
+            n2 "She did not press."
+
+    $ menu_owner = None
+    # ─── END MENU 3 ───────────────────────────────────────────
+
+    nvl clear
+
+    $ duck(level=0.1, delay=0.4)
+    n2 "They stayed like that for a while."
+    n2 "Makoto at the base of the wall. Shina above her, feet over the edge, naginata across her knees."
+    n2 "The maple dropped a leaf."
+    n2 "It made the only sound."
+    $ unduck(level=0.2, delay=2.5)
+
+    show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "Get some sleep."
+    mk2 "The deadline is morning, and you look like you haven't slept since noon."
+    show nvl_shina smug at nvl_stage_left onlayer nvl_chars with dissolve
+    sh2 "I'm very well rested."
+    show nvl_makoto amused at nvl_stage_right onlayer nvl_chars with dissolve
+    mk2 "You are a very open scroll, Shina."
+
+    n2 "She turned and went back inside."
+
+    hide nvl_makoto amused onlayer nvl_chars with dissolve
+
+    $ duck(level=0.1, delay=0.3)
+    n2 "Shina watched her go."
+    n2 "Then she looked back at the road."
+    n2 "Then at the gate. The latch she had fixed the third day."
+    n2 "The grounds beyond it — the swept gravel, the maple, the covered walkway with its amber lanterns."
+    n2 "All of it dark now. All of it familiar."
+    $ unduck(level=0.2, delay=3.0)
+
+    hide nvl_shina smug onlayer nvl_chars with dissolve
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 2.0
+    stop ambience fadeout 2.0
+    pause 2.0
+
+    if shina_stay_points >= 2:
+        jump ch4_secret_coda
+    else:
+        jump credits
+
+
+########################################
+# SECRET SCENE — THE MORNING
+########################################
+
+label ch4_secret_coda:
+    scene bg temple_night with slow_dissolve
+    play ambience "audio/morning_birds.ogg" fadein 3.0 volume 0.4
+    play music bgm_mountain_soft fadein 2.5 volume 0.2
+    pause 2.0
+    show screen nvl_frame with Dissolve(0.8)
+    pause 0.4
+    nvl clear
+
+    n2 "She was in the lower courtyard when the light was still grey."
+    n2 "Not dark, not light — the particular grey that belonged to neither."
+    n2 "The morning bell had not yet rung."
+
+    show nvl_shina neutral at nvl_stage_center onlayer nvl_chars with dissolve
+    pause 0.5
+
+    n2 "Shina worked through the first stretches of morning in her under-layer, feet bare on the cold stone. Shoulders first, then her neck, then the long pull down the back of each leg she had learned the hard way to never skip."
+    n2 "The left shoulder made its usual complaint. She gave it the usual acknowledgment and continued."
+
+    nvl clear
+
+    n2 "She was not thinking about the oath."
+    n2 "Or she was, and it had settled somewhere below where thinking happens — in the layer where bodies arrive at things before the rest of you does."
+
+    nvl clear
+
+    n2 "The gate latch was fixed."
+    n2 "She had done that the third day. Not because anyone asked. Because it was wrong, and wrong things should be corrected before they become problems."
+    n2 "She had not considered, at the time, that this was already an answer to a question that had not yet been asked."
+
+    nvl clear
+
+    $ duck(level=0.12, delay=0.4)
+    n2 "The morning bell rang from the main hall."
+    n2 "Shina straightened. Rolled her left shoulder once more."
+    n2 "Reached for her outer shirt."
+    $ unduck(level=0.2, delay=2.5)
+
+    n2 "The groundskeeper was crossing the courtyard with his broom."
+    n2 "He looked at her."
+    n2 "She looked at him."
+
+    sh2 "Cold morning."
+
+    n2 "He nodded — the slow approval of someone who found this answer satisfactory — and went back to his sweeping."
+
+    nvl clear
+
+    $ duck(level=0.1, delay=0.3)
+    n2 "She watched his arc for a moment. The particular path of the broom around the base of the maple tree, worn into muscle deep enough that he no longer had to look."
+    n2 "Years of the same morning, until the morning had become the body."
+    $ unduck(level=0.2, delay=3.0)
+
+    n2 "She picked up the naginata."
+    n2 "Went to find the advisor."
+
+    hide nvl_shina neutral onlayer nvl_chars with dissolve
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    stop music fadeout 3.0
+    stop ambience fadeout 3.0
+    pause 3.0
+    scene bg black with slow_dissolve
+    pause 2.0
+
+    jump credits
+    return
