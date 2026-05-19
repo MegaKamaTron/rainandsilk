@@ -2,29 +2,29 @@
 # Chapter 3: The Road Knows Her Name
 # Shina & Makoto — Pilgrimage Day
 # =========================================================
-#
+# 
 # NOTE: Add the following to 02_characters.rpy before use:
-#
+# 
 # define sh = Character(
-#     "Shina",
-#     color="#B5562A",
-#     who_color="#B5562A",
-#     ctc="ctc_icon",
-#     ctc_pause="ctc_icon",
-#     ctc_timedpause="ctc_icon",
-#     ctc_position="fixed",
+# "Shina",
+# color="#B5562A",
+# who_color="#B5562A",
+# ctc="ctc_icon",
+# ctc_pause="ctc_icon",
+# ctc_timedpause="ctc_icon",
+# ctc_position="fixed",
 # )
-#
+# 
 # define mk = Character(
-#     "Makoto",
-#     color="#8B6A9B",
-#     who_color="#8B6A9B",
-#     ctc="ctc_icon",
-#     ctc_pause="ctc_icon",
-#     ctc_timedpause="ctc_icon",
-#     ctc_position="fixed",
+# "Makoto",
+# color="#8B6A9B",
+# who_color="#8B6A9B",
+# ctc="ctc_icon",
+# ctc_pause="ctc_icon",
+# ctc_timedpause="ctc_icon",
+# ctc_position="fixed",
 # )
-#
+# 
 # =========================================================
 
 label chapter_3_start:
@@ -47,19 +47,21 @@ label ch3_prologue:
     play ambience forestamb fadein 2.0 volume 0.45
     pause 1.0
 
-    op "Four years on the same roads teaches you things no one thinks to mention."
-    op "Which stone she steps around without looking. Which bell she waits for before she moves."
-    op "The way she pauses at a threshold — not hesitation. Something closer to courtesy."
+    op "Four years on the same roads taught her things no one ever thought to mention."
+    op "They simply required....awareness."
+    op "Which stone she stepped around without looking. Which bell she waited for before moving."
+    op "The way she paused at a threshold, with a soft held breath and a gentle reverence for whatever lied behind it. Never hesitation...something closer to courtesy."
 
     $ duck(level=0.35, delay=0.4)
-    op "Shina had not catalogued any of this deliberately."
+    op "Shina had not catalogued any of this deliberately. At least, she'd never admit that that could be the case."
     op "She had simply been paying attention."
+    op "Like any good Shadow would do for their Priestess."
     $ unduck(level=0.55, delay=1.5)
 
-    op "The mountain road to the high shrine wound through cedar and stone the same way it always had."
-    op "She had walked it four times now. Maybe five."
-    op "Each time, the Priestess moved through it, it was as if she had forged the landscape itself."
-    op "Each time, Shina walked two steps ahead."
+    op "The mountain road to the high shrine wound through cedar canopies and rugged stone switchbacks the same way it always had."
+    op "She had escorted the Priestess on this path with her countless times before. Only treked once alone, when she had made the choice to stay."
+    op "Each time, the Priestess moved through it, it was as if she had forged the landscape itself. Flawlessly, filled with a casual intention that made it seem as easy as breathing."
+    op "Each time they traveled together, Shina walked two steps ahead."
     op "Not because she was told to--"
     op "--but simply because she chose to."
 
@@ -84,30 +86,31 @@ label ch3_s1_morning:
     play music temple_theme fadein 1.5 volume 0.25
     pause 1.5
 
-    n "Morning at the mountain shrine arrived in layers — birdsong before light, then the slow bleed of grey into amber through the paper screens."
+    n "Morning at the mountain shrine arrived in layers; birdsong before light, then the slow bleed of grey into amber through the paper screens."
 
-    n "Makoto was already at her writing desk when Shina appeared in the doorframe."
+    n "Makoto was at her writing desk when Shina appeared in the doorframe."
     n "Despite both of her sandals being untied, she still thought it was a good idea to carry two cups, balanced in one hand. "
-
-    show shina tea at st_right 
+    # Add a steam animation to the tea cups here, if possible. Maybe a subtle one that only shows when the player is looking for it, since it's not important to the scene but adds a nice touch of life and warmth.
+    show shina tea at st_right
     with dissolve
-    n "She had not knocked."
+    n "She had not knocked. Nor closed the door after her."
     n "She never knocked anymore."
 
     sh "Tea's going cold."
-    show makoto neutral at st_left 
+    show makoto neutral at st_left
     with dissolve
     mk "Then you should have brought it sooner."
     sh "Yeah, yeah."
 
-    n "She set one cup beside the desk without being asked, then dropped onto the low step at the room's edge — the one the junior attendants used — and stretched her legs out in front of her."
+    n "She set one cup beside the desk without being asked, then dropped onto the low step at the room's edge, stretching her long legs out in front of her."
 
     show shina relaxed at st_right
-    n "Three attendants had told her, at various points over four years, that the step was not for her."
+    n "Three attendants had told her, at various points over the past four years, that the step was not for her."
     n "She remained unaware of this."
 
     show makoto mischevious at st_left
     mk "The step again."
+    #REsize shina sprite here so its the same size as shina relaxed
     show shina shrug closed at st_right
     sh "It's a good step."
     mk "There are four designated positions for a Shadow during morning correspondence."
@@ -116,16 +119,13 @@ label ch3_s1_morning:
     show makoto neutral
     mk "That step is not one of them."
     show shina shrug closed at st_right
-    sh "Shame."
+    sh "Shame. It's a really good step."
     hide shina with dissolve
     hide makoto with dissolve
     n "The priestess hid another smile behind her ceramic cup and sipped her tea."
 
+    # play sound "morningbell.ogg"
     pause 0.5
-    n "The morning bell was not far off."
-    n "One of them was going to have to say it."
-    n "Between the two of them, it was usually Shina."
-
 # #######################################
 # MENU 1
 # #######################################
@@ -137,10 +137,10 @@ label ch3_s1_morning:
             sh "Oi. Sun's up. You coming or what?"
             n "She said it from the step rather than the door, which was not the correct protocol for a Shadow in a formal context."
             n "Makoto set her brush down."
-            show makoto_amused
+            show makoto_amused at st_left
             mk "I have been ready since before you arrived."
             show shina_annoyed
-            sh "Then why are we still sitting here."
+            sh "Then why are we still sitting here?"
             mk "I was waiting to see how long it would take you to ask."
             n "Shina looked at her."
             n "Makoto's expression gave nothing back."
@@ -148,34 +148,36 @@ label ch3_s1_morning:
             sh "Evil Priestess."
             show makoto_laughing_restrained
 
-        "She just stands. Already holding the travel pack.":
+        "She just stands.":
             $ shina_honest_points += 1
             show shina casual at st_right
             with dissolve
-            n "She didn't say anything."
-            n "Just unfolded herself from the step, finished the last of the tea, and appeared in the edge of Makoto's reading light with the travel pack already over one shoulder."
+            n "Shina didn't say anything. Simply just unfolded herself from the step, finished the last of the tea, and appeared in the edge of Makoto's reading light with the travel pack already over one shoulder."
+            sh "Any good?"
             n "Makoto read one more line of the letter."
+            sh "...No."
+            sh "Then why keep reading?"
             show makoto_amused
             mk "You could simply say when you're ready."
             show shina_smug
-            sh "This is faster."
+            sh "This is faster. And more fun."
             mk "It is also vaguely threatening."
-            sh "Bonus."
+            sh "I would say it's more like, strongly encouraging."
             show makoto_laughing_restrained
 
         "\"The road won't walk itself, evil Priestess.\"":
             show shina casual at st_right
             with dissolve
             $ shina_honest_points += 1
-            sh "The road won't walk itself, evil Priestess."
+            sh "The road won't walk itself y'know, evil Priestess."
             n "Makoto set her brush down with the deliberate care of someone deciding not to laugh."
+            show makoto amused at st_left
+            mk "That title--"
+            show shina relaxed
+            sh "-Fits."
+            mk "It's starting to grow on me."
+            sh "Yeah, yeah. Don't get used to it."
             show makoto amused
-            mk "That title."
-            show shina smug
-            sh "Fits."
-            mk "It grows on me."
-            sh "Don't get used to it."
-            show makoto laughing restrained
             mk "Too late."
             show shina embarrassed
 
@@ -186,6 +188,12 @@ label ch3_s1_morning:
 
     hide shina_neutral with dissolve
     hide makoto_neutral with dissolve
+    n "Shina clicked her tongue and turned on her toes, pivoting so she was facing the door."
+    n "Her naginata was leaned up against the doorframe, the same spot she always left it when small moments like this caused her guard to lower."
+    n "She rested it against her shoulder, barely glancing back."
+    sh "Roads waiting."
+    n "Makoto stood up, stretching out the kinks from sitting, and for the rare moment she would be able to, stepped over and stood close enough to Shina to touch her."
+    mk "As it always does."
     pause 0.5
     window hide
     scene bg black with dissolve
