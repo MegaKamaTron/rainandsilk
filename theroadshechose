@@ -58,11 +58,14 @@ label ch4_prologue:
     n2 "The sound of hooves faded into the cedars."
     n2 "Then the road was quiet."
     nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
     jump ch4_s1_road
 
 ## S1 — The Road
 label ch4_s1_road:
-    hide bg_01 with dissolve
+    show bg_03 with dissolve
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.5)  
     n2 "Seven men. The procession reduced to its essentials: two attendants who could not run, Makoto herself, and the road."
     n2 "She stepped in front of the cart."
     n2 "Her hands were shaking. She pressed them flat against her thighs."
@@ -78,11 +81,13 @@ label ch4_s1_road:
     hide screen nvl_frame with Dissolve(0.5)
     hide bg_02 with dissolve    
 
+    scene bg black
     pause 0.5
     n2 "He reached for her collar."
     nvl clear
-    
-    show bg_03 with slow_dissolve
+    show bg_02_5 with dissolve
+    pause 0.5
+    show bg_03 with dissolve
     pause 1.0
     show screen nvl_frame with Dissolve(0.5) 
     n2 "The woman came out of the treeline without announcing herself."
@@ -91,13 +96,17 @@ label ch4_s1_road:
     nvl clear
     n2 "She stepped forward."
     pause 0.5
-    hide bg_03 with dissolve
+    scene bg black with dissolve
     n2 "What happened after that was efficient and brief. A body that had stopped having to think about it, working through the geometry of the problem."
     n2 "When it was over, a branch settled in the cedars. The last two men were gone."
+    nvl clear
 
     show nvl_shina neutral at nvl_stage_left onlayer nvl_chars with dissolve
     show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
-
+    hide screen nvl_frame with Dissolve(0.5)
+    show bg_04 with dissolve
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.5)
     sh2 "You."
     sh2 "What were you doing?"
     mk2 "Standing where I was."
@@ -131,7 +140,7 @@ label ch4_s1_road:
             n2 "Not a shrine guard. Not a court appointment. Someone the road had made from other materials entirely."
 
     $ menu_owner = None
-
+    nvl clear
     hide nvl_shina neutral onlayer nvl_chars with dissolve
     hide nvl_makoto neutral onlayer nvl_chars with dissolve
     nvl clear
@@ -139,56 +148,70 @@ label ch4_s1_road:
     n2 "Interrupting, the woman named her price. Three days' work at a stated rate. Paid on arrival. Meals included. If there was trouble on the road, that was part of the rate."
     n2 "Sato made a sound."
     sa2 "T-that is awfully presumptuous of you. And your price--"
-    
     mk2 "Fair. For the distance and the risk. Yes."
-
     n2 "The woman turned and began righting the supply cart with the businesslike attention of someone who had already moved on to the next problem."
+    nvl clear
     n2 "Even though she had just wiped her naginata clean, she used it as a lever to right the cart."
     sh2 "Cart's salvageable. Lost some of the load when it went over."
     sh2 "Dunno. You'll probably want to check what broke."
-    n2 "Hana still remained silent, but moved over to where the horses had been impatiently waiting. Once the horses and cart had been recovered for what it was worth, Sato huffed and moved to sit next to Hana, who's hands were shaking as she held the reins."
+    n2 "A pause."
+    sh2 "The driver..."
+    n2 "There was a moment of heavy silence."
+    sh2 "If you have any fabric--"
+    n2 "Sato stepped around to the back of the cart. Silently, she lifted the lid of one of the wooden crates."
+    sa2 "I can--"
+    n2 "The wine-red haired woman took the fabric from Sato. She didn't ask for them. Simply took them."
+    nvl clear
+    sh2 "I'll be back."
+    show forest path with dissolve
+    pause 0.5
+    n2 "Part of Makoto wanted to watch the woman wrap the stiff body. This absolute stranger seemed to read the situation and took charge accordingly. Neither of the three of them were in any condition to deal with a deceased body."
+    n2 "Instead, the priestess silently stood to the side of the cart. A calming presence for the young woman who was again on the verge of fresh tears. "
+    n2 "The minutes dragged like hours until there was a heavy thud landing in the back of the cart."
+    n2 "Hana remained silent the entire time. Sato moved to sit next to Hana, who's hands were shaking as she white-knuckeled the reins."
     n2 "Sato laid a hand on Hana's shoulder for a brief moment before taking the reins from Hana's grip. Gently."
     n2 "Makoto was already on her mare."
+    sh2 "Sun's still high. Probably should keep moving."
 
     nvl clear
-
-    n2 "She walked in front."
+    hide screen nvl_frame with Dissolve(0.5)
+    show bg_05 with dissolve
+    pause 1.0
+    show screen nvl_frame with Dissolve(0.5)
+    n2 "The woman brushed past the priestess, the smell of oak and campfire, and walked in front."
     n2 "Not far ahead. Close enough to hear trouble before it arrived. But ahead, clearly, with no suggestion the arrangement was open for discussion."
     n2 "The naginata rode across her shoulders in a posture that managed to look simultaneously relaxed and ready."
     n2 "In the first hour, she said nothing."
     n2 "In the first hour, Makoto learned the length of her stride."
-
     nvl clear
 
     show nvl_makoto neutral at nvl_stage_right onlayer nvl_chars with dissolve
-    n2 "Sato rode close before she spoke."
-
-    sa2 "My lady. She has no manners whatsoever."
+    n2 "Sato leaned over just a bit, closer to the priestess before she spoke."
+    sa2 "My lady... she has no manners whatsoever."
     mk2 "She saved our lives."
     sa2 "That does not preclude manners."
 
-    n2 "From the road ahead, without turning:"
-
     sh2 "I can hear you."
-
-    n2 "Sato went rigid."
-
+    n2 "Makoto rarely saw such a reaction from the older advisor. Sato went rigid."
     sh2 "Sound carries on mountain roads. Especially when it's quiet."
+    nvl clear
     pause 0.5
-    sh2 "And I have excellent manners. I haven't complained about the pace once."
-
+    sh2 "...."
+    sh2 "...and I have excellent manners. I haven't even complained about the pace once."
+    nvl clear
+    hide screen nvl_frame with Dissolve(0.5)
+    scene bg black with dissolve
+    pause 0.5
+    show screen nvl_frame with Dissolve(0.5)
     n2 "Makoto looked down at the reins."
+    n2 "She brushed a small fraying chip of worn leather on the reins between her fingers."
     n2 "She did not smile."
     n2 "Or tried not to."
-
-    hide nvl_shina neutral onlayer nvl_chars with dissolve
-    hide nvl_makoto neutral onlayer nvl_chars with dissolve
     nvl clear
     hide screen nvl_frame with Dissolve(0.5)
     stop music fadeout 2.0
     stop ambience fadeout 2.0
     pause 2.0
-
     jump ch4_s2_shrine
 
 ## S2 — The Shrine
