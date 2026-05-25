@@ -59,26 +59,21 @@ label ch3_prologue:
     $ unduck(level=0.55, delay=1.5)
 
     op "The mountain road to the high shrine wound through cedar canopies and rugged stone switchbacks the same way it always had."
-    op "She had escorted the Priestess on this path with her countless times before. Only treked once alone, when she had made the choice to stay."
+    op "She had escorted the Priestess on this path with her countless times before. Only once alone, when she had made the choice to stay."
     op "Each time, the Priestess moved through it, it was as if she had forged the landscape itself. Flawlessly, filled with a casual intention that made it seem as easy as breathing."
     op "Each time they traveled together, Shina walked two steps ahead."
     op "Not because she was told to--"
     op "--but simply because she chose to."
-
     window hide
     scene bg black with slow_dissolve
     stop music fadeout 3.0
     pause 0.8
     stop ambience fadeout 2.5
     pause 2.0
-
     jump ch3_s1_morning
-
-
 # =========================================================
 # SCENE 1 — MORNING
 # =========================================================
-
 label ch3_s1_morning:
     scene bg shrine_room_morning
     with dissolve
@@ -88,10 +83,10 @@ label ch3_s1_morning:
 
     n "Morning at the mountain shrine arrived in layers; birdsong before light, then the slow bleed of grey into amber through the paper screens."
 
-    n "Makoto was at her writing desk when Shina appeared in the doorframe."
+    n "Makoto was at her writing desk when Shina appeared in the doorframe. The tips of her unruly hair just brushing the top of the door frame."
     n "Despite both of her sandals being untied, she still thought it was a good idea to carry two cups, balanced in one hand. "
-    # Add a steam animation to the tea cups here, if possible. Maybe a subtle one that only shows when the player is looking for it, since it's not important to the scene but adds a nice touch of life and warmth.
-    show shina tea at st_right
+
+    show shina base at st_right
     with dissolve
     n "She had not knocked. Nor closed the door after her."
     n "She never knocked anymore."
@@ -102,7 +97,7 @@ label ch3_s1_morning:
     mk "Then you should have brought it sooner."
     sh "Yeah, yeah."
 
-    n "She set one cup beside the desk without being asked, then dropped onto the low step at the room's edge, stretching her long legs out in front of her."
+    n "She set one cup beside the desk without being asked, then dropped onto the low step at the room's edge, and stretched her legs out in front of her."
 
     show shina relaxed at st_right
     n "Three attendants had told her, at various points over the past four years, that the step was not for her."
@@ -110,7 +105,6 @@ label ch3_s1_morning:
 
     show makoto mischevious at st_left
     mk "The step again."
-    #REsize shina sprite here so its the same size as shina relaxed
     show shina shrug closed at st_right
     sh "It's a good step."
     mk "There are four designated positions for a Shadow during morning correspondence."
@@ -137,7 +131,7 @@ label ch3_s1_morning:
             sh "Oi. Sun's up. You coming or what?"
             n "She said it from the step rather than the door, which was not the correct protocol for a Shadow in a formal context."
             n "Makoto set her brush down."
-            show makoto_amused at st_left
+            show makoto_amused
             mk "I have been ready since before you arrived."
             show shina_annoyed
             sh "Then why are we still sitting here?"
@@ -171,43 +165,32 @@ label ch3_s1_morning:
             $ shina_honest_points += 1
             sh "The road won't walk itself y'know, evil Priestess."
             n "Makoto set her brush down with the deliberate care of someone deciding not to laugh."
-            show makoto amused at st_left
+            show makoto amused
             mk "That title--"
-            show shina relaxed
+            show shina smug
             sh "-Fits."
             mk "It's starting to grow on me."
+            n "Something akin to a scoff came from Shina's throat, as she suddenly starting watching the shadow of the rain chain outside the door grow and sway, glinting in the morning light."
             sh "Yeah, yeah. Don't get used to it."
-            show makoto amused
+            show makoto laughing restrained
             mk "Too late."
             show shina embarrassed
-
     $ menu_owner = None
 # #######################################
 # END MENU 1
 # #######################################
-
     hide shina_neutral with dissolve
     hide makoto_neutral with dissolve
-    n "Shina clicked her tongue and turned on her toes, pivoting so she was facing the door."
-    n "Her naginata was leaned up against the doorframe, the same spot she always left it when small moments like this caused her guard to lower."
-    n "She rested it against her shoulder, barely glancing back."
-    sh "Roads waiting."
-    n "Makoto stood up, stretching out the kinks from sitting, and for the rare moment she would be able to, stepped over and stood close enough to Shina to touch her."
-    mk "As it always does."
     pause 0.5
     window hide
     scene bg black with dissolve
     stop music fadeout 1.5
     stop ambience fadeout 2.0
     pause 1.5
-
     jump ch3_s2_road
-
-
 # =========================================================
 # SCENE 2 — THE ROAD
 # =========================================================
-
 label ch3_s2_road:
     scene bg road_cedar_day
     with dissolve
@@ -230,6 +213,7 @@ label ch3_s2_road:
     n "Close enough to hear a footstep change."
     $ unduck(level=0.3, delay=1.5)
 
+    show bg road_fork with dissolve
     show shina_neutral
     sh "Fork up ahead. Left path is faster. Stones are bad since the rain."
     show makoto_neutral
@@ -240,8 +224,7 @@ label ch3_s2_road:
     show shina_neutral
     sh "I check every time."
 
-    n "She said it without particular weight."
-    n "As if it were simply the most practical thing in the world."
+    n "She said it without particular weight. As if it were simply the most practical thing in the world."
 
     mk "Right path, then."
     sh "Right path."
@@ -266,12 +249,13 @@ label ch3_s2_road:
     show shina_scratch_head
     sh "That came out more serious than I meant it."
     show makoto_amused
-    mk "Did it."
+    mk "Did it?"
     show shina_annoyed
     sh "Don't."
     n "Makoto looked ahead at the road."
     n "Which was worse."
 
+    show bg road with dissolve
     $ duck(level=0.25, delay=0.4)
     n "The path curved around a shelf of old rock, the valley opening wide and low below them on the left."
     n "Shina shifted half a step toward the drop side."
@@ -299,11 +283,11 @@ label ch3_s2_road:
 
     show shina_neutral
     sh "For what it's worth. You could've gotten someone court-appointed."
-    sh "Official record, letters of endorsement, the whole thing."
+    sh "Official record, letters of endorsement..."
+    mk "I could have."
     sh "Didn't end up that way."
     show makoto_neutral
-    mk "No."
-    mk "It didn't."
+    mk "No. It didn't."
     show shina_neutral
     sh "Just saying."
 
@@ -313,23 +297,17 @@ label ch3_s2_road:
     $ unduck(level=0.3, delay=1.5)
 
     show makoto_amused
-    mk "I am not aware of having complained."
+    mk "I am not aware of ever having complained."
     show shina_neutral
     sh "I know."
     sh "Still."
 
-    n "She left it there."
-    n "Makoto let it stand."
-
     pause 0.5
-
     show shina_neutral
     sh "Ronin thing, I think."
-    sh "You move until you find the thing worth stopping for."
-    sh "Then you stop."
+    sh "You move until you find the thing worth stopping for. Then you stop."
 
-    n "She said it like it was road-logic."
-    n "Practical habit. The kind of sentence that closes before anyone can look at it too long."
+    n "She said it like it was road-logic. Practical habit. The kind of sentence that closes before anyone can look at it too long."
 
 # #######################################
 # MENU 2
@@ -383,13 +361,11 @@ label ch3_s2_road:
 
     jump ch3_s3_snake
 
-
 # =========================================================
 # SCENE 3 — THE SNAKE
 # =========================================================
-
 label ch3_s3_snake:
-
+    show bg road_snake with dissolve
     show shina_weapon_ready at stage_left
     show makoto_neutral at stage_right
     window show dissolve_2
@@ -486,7 +462,7 @@ label ch3_s3_snake:
 # =========================================================
 
 label ch3_s4_arrival:
-    scene bg temple_dusk with slow_dissolve
+    scene bg temple_dusk_02 with slow_dissolve
     play ambience forestamb fadein 1.5 volume 0.7
     play music temple_theme fadein 2.0 volume 0.3
     pause 2.0
@@ -511,7 +487,8 @@ label ch3_s4_arrival:
     n "This was where she always stopped."
     n "The rite was Makoto's, and that threshold was hers."
     $ unduck(level=0.3, delay=1.5)
-
+    
+    show bg temple_dusk_02_door with dissolve
     show makoto_neutral
     n "Makoto paused at the gate and turned back."
 
@@ -632,8 +609,7 @@ label ch3_secret_coda:
     $ unduck(level=0.2, delay=3.5)
 
     n "Outside, she knew, Shina was not going anywhere."
-    n "She had said so."
-    n "In the plainest sentence she had managed all day, she had simply said so."
+    n "She had said so. And meant it."
 
     hide makoto_flustered_hidden with slow_dissolve
     window hide
