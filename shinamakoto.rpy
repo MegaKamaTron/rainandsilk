@@ -101,10 +101,10 @@ label ch3_s1_morning:
 
     show shina relaxed at st_right
     n "Three attendants had told her, at different points over the last four years, that the step wasn't for her."
-    n "She had no idea."
+    n "And at each point, Shina pretended she had no idea."
 
     show makoto knowing at st_left
-    mk "The step again."
+    mk "The step. {i}Again.{/i}"
     show shina shrug at st_right
     sh "It's a good step."
     mk "There are four designated spots for a Shadow during morning correspondence."
